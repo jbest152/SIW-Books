@@ -28,7 +28,7 @@ public class Book {
      @Max(2025)
      private Integer year;
      
-     @NotBlank
+     
      private String urlImage;
      
      @ManyToMany

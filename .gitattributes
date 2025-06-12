@@ -1,0 +1,33 @@
+# ====================
+# Line ending settings
+# ====================
+
+# Imposta LF per file di testo standard (consigliato)
+*.java     text eol=lf
+*.xml      text eol=lf
+*.yml      text eol=lf
+*.properties text eol=lf
+*.md       text eol=lf
+
+# Script Windows: mantieni CRLF
+*.bat      text eol=crlf
+*.cmd      text eol=crlf
+
+# Shell scripts: usa LF
+*.sh       text eol=lf
+
+# Imposta conversione automatica per altri file di testo
+*          text=auto
+
+# ====================
+# File binari (niente conversione)
+# ====================
+
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.pdf      binary
+*.class    binary
+*.jar      binary
+*.war      binary

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Book</title>
+   <!---- <link rel="stylesheet" href="/stile.css?version=3" /> -->
+  </head>
+  <body>
+    <div><a href="/"><img src="/logo-siw.png" width="20%"/></a></div>
+    <h1>Modifica libro</h1>
+    <form th:action="@{/book}" method="POST" th:object="${book}">
+      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+      <div>
+		<input type="hidden" th:field="book.id"/>
+        <label>Titolo:</label> <span><input required type="text" th:field="${book.title}"/></span>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+      </div>
+      <div>
+        <label>Anno:</label><span><input required type="text" th:field="${book.year}"/></span>
+        <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
+      </div>
+      <div>
+        <label>URL immagine:</label><span><input type="url" th:field="${book.urlImage}" /></span>
+      </div>
+	  
+	  <div>
+		<h1> Autori</h1>
+		
+		<select th:field="*{authors}" multiple>
+			<option th:each="author : ${authors}"
+					th:value="${author.id}"
+					th:text="${author.name + ' ' + author.surname}">
+			</option>
+		</select>
+			   
+	  </div>
+	  
+      <div>
+        <span><button type="submit">Conferma</button></span>
+      </div>
+    </form>
+  </body>
+</html>

@@ -1,12 +1,14 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -26,14 +28,15 @@ public class Author {
 	@NotNull
 	private LocalDate dateOfBirth;
 	
-	@NotNull
 	private LocalDate dateOfDeath;
 
-	@NotBlank
 	private String nationality;
 	
-	@NotBlank
 	private String urlImage;
+	
+	 @ManyToMany
+     private List<Book> books;
+
 
 	public Long getId() {
 		return id;
@@ -90,10 +93,18 @@ public class Author {
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
+	
+	public List<Book> getBooks() {
+		return books;
+	}
+	
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateOfBirth, dateOfDeath, id, name, nationality, surname, urlImage);
+		return Objects.hash(books, dateOfBirth, dateOfDeath, id, name, nationality, surname, urlImage);
 	}
 
 	@Override
@@ -105,10 +116,10 @@ public class Author {
 		if (getClass() != obj.getClass())
 			return false;
 		Author other = (Author) obj;
-		return Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(dateOfDeath, other.dateOfDeath)
-				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(nationality, other.nationality) && Objects.equals(surname, other.surname)
-				&& Objects.equals(urlImage, other.urlImage);
+		return Objects.equals(books, other.books) && Objects.equals(dateOfBirth, other.dateOfBirth)
+				&& Objects.equals(dateOfDeath, other.dateOfDeath) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name) && Objects.equals(nationality, other.nationality)
+				&& Objects.equals(surname, other.surname) && Objects.equals(urlImage, other.urlImage);
 	}
 	
 }

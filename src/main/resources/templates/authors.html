@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Autori</title>
+    <link rel="stylesheet" href="/style.css?version=2" />
+  </head>
+
+  <body>
+    <div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
+    <h1>Autori</h1>
+    <div th:if="${authors.isEmpty()}">Non ci sono autori nel sistema</div>
+    <ul>
+      <li th:each="author: ${authors}">
+        <a th:href="@{'/author' + '/' + ${author.id}}"
+          th:text="${author.name} + ' ' + ${author.surname}"></a>
+		<div th:if="${isAdmin}">
+			<a th:href="@{'/author' + '/' + ${author.id} + '/update'}" > modifica </a>
+			<form th:action="@{'/author/' + ${author.id} + '/delete'}" method="POST">
+			  <button type="submit">Elimina</button>
+			</form>
+		</div>
+      </li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Libri</title>
+    <link rel="stylesheet" href="/style.css?version=2" />
+  </head>
+
+  <body>
+    <div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
+    <h1>Libri</h1>
+    <div th:if="${books.isEmpty()}">Non ci sono libri nel sistema</div>
+    <ul>
+      <li th:each="book: ${books}">
+        <a th:href="@{'/book' + '/' + ${book.id}}"
+          th:text="${book.title} + ' (' + ${book.year} + ')'"></a>
+		<div th:if="${isAdmin}">
+			<a th:href="@{'/book/' + ${book.id} + '/update'}" > modifica </a>
+			<form th:action="@{'/book/' + ${book.id} + '/delete'}" method="POST">
+			  <button type="submit">Elimina</button>
+			</form>
+		</div>
+		
+      </li>
+    </ul>
+  </body>
+</html>

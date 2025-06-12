@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Autore</title>
+        <link rel="stylesheet" href="/stile.css?version=2" />
+    </head>
+
+    <body>
+        <div>
+			<a href="/"><img src="/logo-siw.png" width="20%"></a>
+		</div>
+		<div th:if="${author}">
+	        <h1 th:text="${author.name + '       ' + author.surname}"></h1>
+				<div>Nazionalità: 
+					<span th:text="${author.nationality}"></span>
+				</div>
+	            <div>Giorno di nascita: 
+					<span th:text="${author.dateOfBirth}"> </span>
+				</div>
+				<div th:if="${author.dateOfDeath}"> Giorno di morte: 
+					<span th:text="${author.dateOfDeath}"></span>
+				</div>
+	            <span><img width="30%" th:src="${author.urlImage}" /></span>
+	       
+		</div>
+	    <div th:unless="${author}">Non esiste</div>
+    </body>
+</html>
