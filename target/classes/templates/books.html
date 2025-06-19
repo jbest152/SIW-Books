@@ -6,6 +6,7 @@
   </head>
 
   <body>
+	<div th:replace="fragments/nav :: navbar"></div>
     <div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
     <h1>Libri</h1>
     <div th:if="${books.isEmpty()}">Non ci sono libri nel sistema</div>

@@ -6,6 +6,7 @@
   </head>
   <body>
     <div><a href="/"><img src="/logo-siw.png" width="20%"/></a></div>
+	<div th:replace="fragments/nav :: navbar"></div>
     <h1>Aggiungi un autore</h1>
     <form th:action="@{/author}" method="POST" th:object="${author}"> <!-- appena tocchi il pulsante submit lo dai a Post detto author, vedi nel controller postMapping  -->
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
