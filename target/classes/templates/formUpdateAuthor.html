@@ -10,6 +10,7 @@
     <form th:action="@{/author}" method="POST" th:object="${author}"> <!-- appena tocchi il pulsante submit lo dai a Post detto author, vedi nel controller postMapping  -->
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
       <div>
+		<input type="hidden" th:field="*{id}" />
         <label>Nome:</label> <span><input required type="text" th:field="${author.name}"/></span>
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
       </div>

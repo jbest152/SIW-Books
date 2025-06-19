@@ -10,7 +10,7 @@
     <form th:action="@{/book}" method="POST" th:object="${book}">
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
       <div>
-		<input type="hidden" th:field="book.id"/>
+		<input type="hidden" th:field="*{id}" />
         <label>Titolo:</label> <span><input required type="text" th:field="${book.title}"/></span>
         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
       </div>
