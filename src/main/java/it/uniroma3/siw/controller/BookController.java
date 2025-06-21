@@ -54,7 +54,6 @@ public class BookController {
 		} 
 		else {
 			this.bookService.saveBook(book);
-			model.addAttribute("book", book);
 			return "redirect:/book/"+book.getId();
 		}
 	}

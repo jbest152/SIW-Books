@@ -105,7 +105,6 @@ public class AuthorController {
 	    author.removeBook(bookService.getBookById(bookId));
 	    authorService.saveAuthor(author);
 
-	    
 	    return "redirect:/author/"+ id + "/update";
 	}
 

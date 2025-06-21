@@ -80,7 +80,14 @@ public class Review {
 		return Objects.equals(id, other.id) && rating == other.rating && Objects.equals(text, other.text)
 				&& Objects.equals(title, other.title);
 	}
-	
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
 	
 	
 

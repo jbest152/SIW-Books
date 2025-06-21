@@ -95,4 +95,13 @@ public class Book {
 				&& Objects.equals(title, other.title) && Objects.equals(urlImage, other.urlImage)
 				&& Objects.equals(year, other.year);
 	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+	
 }

@@ -21,6 +21,17 @@
 	     </li>
 	   </ul>
 		
+	   
+	   <div th:if="${book.reviews.isEmpty()}">Il libro non ha recensioni</div>
+   		<ul>
+   	     <li th:each="review: ${book.reviews}">
+   	       <a th:href="@{'/review' + '/' + ${review.id}}"
+   	         th:text="${review.title}"></a>
+   	     </li>
+   	   	</ul>
+		   
+	   <a th:href="@{'/book/' + ${book.id} + '/review'}">Aggiungi una recensione</a>
+
         <div th:unless="${book}">Non esiste</div>
 
     </body>
