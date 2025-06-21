@@ -84,28 +84,24 @@ public class BookController {
 	public String addAuthorToBook(@PathVariable Long id, @RequestParam Long authorId) {
 	    Book book = bookService.getBookById(id);
 	    Author author = authorService.getAuthorById(authorId);
-	    
-	    book.addAuthor(author);
-	    author.addBook(book);
 
-	    bookService.saveBook(book);
+	    author.addBook(book);
 	    authorService.saveAuthor(author);
 
 	    return "redirect:/book/" + id + "/update";
 	}
+
 
 	@PostMapping("/book/{id}/removeAuthor")
 	public String removeAuthorFromBook(@PathVariable Long id, @RequestParam Long authorId) {
 	    Book book = bookService.getBookById(id);
 	    Author author = authorService.getAuthorById(authorId);
 
-	    book.removeAuthor(author);
 	    author.removeBook(book);
-
-	    bookService.saveBook(book);
 	    authorService.saveAuthor(author);
 
 	    return "redirect:/book/" + id + "/update";
 	}
+
 	
 }

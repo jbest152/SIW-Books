@@ -65,16 +65,17 @@ public class AuthorController {
 	
 
 	@PostMapping("/author")
-	public String newAuthor(@Valid @ModelAttribute("author") Author author,BindingResult bindingResult, Model model) {
-		System.out.println("ciao");
+	public String createOrUpdateAuthor(@Valid @ModelAttribute("author") Author author,BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			System.out.println("errore");
 			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
 			return "formNewAuthor.html";
 		} 
 		else {
-			System.out.println("qui");
-
+			if (author.getId() != null) {
+				Author temp = authorService.getAuthorById(author.getId());
+				author.setBooks(temp.getBooks());
+			}
 			this.authorService.saveAuthor(author);
 			model.addAttribute("author", author);
 			return "redirect:/author/"+author.getId();
@@ -90,27 +91,19 @@ public class AuthorController {
 	@PostMapping("/author/{id}/addBook")
 	public String addBookToAuthor(@PathVariable Long id, @RequestParam Long bookId) {
 	    Author author = authorService.getAuthorById(id);
-	    Book book = bookService.getBookById(bookId);
-	    
-	    author.addBook(book);
-	    book.addAuthor(author);
 
+	    author.addBook(bookService.getBookById(bookId));
 	    authorService.saveAuthor(author);
-	    bookService.saveBook(book);
 
-	    return "redirect:/author/"+ id + "/update";
+	    return "redirect:/author/" + id + "/update";
 	}
 
 	@PostMapping("/author/{id}/removeBook")
 	public String removeBookFromAuthor(@PathVariable Long id, @RequestParam Long bookId) {
 	    Author author = authorService.getAuthorById(id);
-	    Book book = bookService.getBookById(bookId);
 
-	    author.removeBook(book);
-	    book.removeAuthor(author);
-
+	    author.removeBook(bookService.getBookById(bookId));
 	    authorService.saveAuthor(author);
-	    bookService.saveBook(book);
 
 	    return "redirect:/author/"+ id + "/update";
 	}

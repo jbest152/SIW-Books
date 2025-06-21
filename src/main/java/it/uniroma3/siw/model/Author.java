@@ -123,13 +123,16 @@ public class Author {
 	}
 
 	public void addBook(Book book) {
-	    if (!books.contains(book)) {
-	        books.add(book);
+	    if (!this.books.contains(book)) {
+	        this.books.add(book);
+	        book.getAuthors().add(this);
 	    }
 	}
 
 	public void removeBook(Book book) {
-	    books.remove(book);
+	    if (this.books.remove(book)) {
+	        book.getAuthors().remove(this);
+	    }
 	}
 	
 }

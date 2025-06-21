@@ -95,15 +95,4 @@ public class Book {
 				&& Objects.equals(title, other.title) && Objects.equals(urlImage, other.urlImage)
 				&& Objects.equals(year, other.year);
 	}
-	
-	public void addAuthor(Author author) {
-	    if (!authors.contains(author)) {
-	        authors.add(author);
-	    }
-	}
-
-	public void removeAuthor(Author author) {
-	    authors.remove(author);
-	}
-	
 }
