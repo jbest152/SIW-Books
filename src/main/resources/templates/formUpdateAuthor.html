@@ -8,9 +8,11 @@
     <div><a href="/"><img src="/logo-siw.png" width="20%"/></a></div>
     <div th:replace="fragments/nav :: navbar"></div>
     <h1>Modifica l'autore</h1>
+
+    <!-- FORM principale autore -->
     <form th:action="@{/author}" method="POST" th:object="${author}">
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-      
+
       <div>
         <input type="hidden" th:field="*{id}" />
         <label>Nome:</label>
@@ -44,7 +46,7 @@
         <label>Data di morte:</label>
         <span>
           <input type="date" 
-                 th:value="${#temporals.format(author.dateOfDeath, 'yyyy-MM-dd')}" 
+                 th:value="${author.dateOfDeath != null} ? ${#temporals.format(author.dateOfDeath, 'yyyy-MM-dd')} : ''" 
                  name="dateOfDeath" />
         </span>
       </div>
@@ -55,18 +57,45 @@
       </div>
 
       <div>
-        <h1>Libri</h1>
-        <select th:field="*{books}" multiple>
-          <option th:each="book : ${books}"
-                  th:value="${book.id}"
-                  th:text="${book.title}">
-          </option>
-        </select>
-      </div>
-
-      <div>
         <span><button type="submit">Conferma</button></span>
       </div>
     </form>
+
+    <hr/>
+
+    <!-- Libri associati con form rimuovi separato -->
+    <h2>Libri associati</h2>
+    <ul>
+      <li th:each="book : ${author.books}">
+        <span th:text="${book.title}"></span>
+        <form th:action="@{/author/{id}/removeBook(id=${author.id})}" method="post" style="display:inline;">
+          <input type="hidden" name="bookId" th:value="${book.id}" />
+          <button type="submit">Rimuovi</button>
+        </form>
+      </li>
+    </ul>
+
+    <hr/>
+
+    <!-- Libri disponibili con form aggiungi separato -->
+    <h2>Libri disponibili</h2>
+    <ul>
+      <li th:each="book : ${books}">
+        <div th:if="${!author.books.contains(book)}">
+          <span th:text="${book.title}"></span>
+          <form th:action="@{/author/{id}/addBook(id=${author.id})}" method="post" style="display:inline;">
+            <input type="hidden" name="bookId" th:value="${book.id}" />
+            <button type="submit">Aggiungi</button>
+          </form>
+        </div>
+      </li>
+    </ul>
+	
+	<div style="margin-top: 20px;">
+	  <form th:action="@{/author/{id}(id=${author.id})}" method="get">
+	    <button type="submit">Conferma modifiche</button>
+	  </form>
+	</div>
+
   </body>
 </html>

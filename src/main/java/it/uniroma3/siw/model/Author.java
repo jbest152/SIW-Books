@@ -121,5 +121,15 @@ public class Author {
 				&& Objects.equals(name, other.name) && Objects.equals(nationality, other.nationality)
 				&& Objects.equals(surname, other.surname) && Objects.equals(urlImage, other.urlImage);
 	}
+
+	public void addBook(Book book) {
+	    if (!books.contains(book)) {
+	        books.add(book);
+	    }
+	}
+
+	public void removeBook(Book book) {
+	    books.remove(book);
+	}
 	
 }

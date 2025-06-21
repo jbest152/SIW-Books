@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Author;
+import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.repository.UserRepository;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
@@ -65,7 +67,7 @@ public class AuthorController {
 	@PostMapping("/author")
 	public String newAuthor(@Valid @ModelAttribute("author") Author author,BindingResult bindingResult, Model model) {
 		System.out.println("ciao");
-		if(bindingResult.hasErrors()) {         //Sono emersi errori nel binding
+		if(bindingResult.hasErrors()) {
 			System.out.println("errore");
 			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
 			return "formNewAuthor.html";
@@ -84,5 +86,34 @@ public class AuthorController {
 	    authorService.deleteById(id);
 	    return "redirect:/updateAuthors";
 	}
+	
+	@PostMapping("/author/{id}/addBook")
+	public String addBookToAuthor(@PathVariable Long id, @RequestParam Long bookId) {
+	    Author author = authorService.getAuthorById(id);
+	    Book book = bookService.getBookById(bookId);
+	    
+	    author.addBook(book);
+	    book.addAuthor(author);
+
+	    authorService.saveAuthor(author);
+	    bookService.saveBook(book);
+
+	    return "redirect:/author/"+ id + "/update";
+	}
+
+	@PostMapping("/author/{id}/removeBook")
+	public String removeBookFromAuthor(@PathVariable Long id, @RequestParam Long bookId) {
+	    Author author = authorService.getAuthorById(id);
+	    Book book = bookService.getBookById(bookId);
+
+	    author.removeBook(book);
+	    book.removeAuthor(author);
+
+	    authorService.saveAuthor(author);
+	    bookService.saveBook(book);
+
+	    return "redirect:/author/"+ id + "/update";
+	}
+
 	
 }

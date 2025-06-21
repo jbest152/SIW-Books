@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
@@ -76,6 +78,34 @@ public class BookController {
 	public String deleteBook(@PathVariable Long id) {
 	    bookService.deleteById(id);
 	    return "redirect:/updateBooks";
+	}
+	
+	@PostMapping("/book/{id}/addAuthor")
+	public String addAuthorToBook(@PathVariable Long id, @RequestParam Long authorId) {
+	    Book book = bookService.getBookById(id);
+	    Author author = authorService.getAuthorById(authorId);
+	    
+	    book.addAuthor(author);
+	    author.addBook(book);
+
+	    bookService.saveBook(book);
+	    authorService.saveAuthor(author);
+
+	    return "redirect:/book/" + id + "/update";
+	}
+
+	@PostMapping("/book/{id}/removeAuthor")
+	public String removeAuthorFromBook(@PathVariable Long id, @RequestParam Long authorId) {
+	    Book book = bookService.getBookById(id);
+	    Author author = authorService.getAuthorById(authorId);
+
+	    book.removeAuthor(author);
+	    author.removeBook(book);
+
+	    bookService.saveBook(book);
+	    authorService.saveAuthor(author);
+
+	    return "redirect:/book/" + id + "/update";
 	}
 	
 }

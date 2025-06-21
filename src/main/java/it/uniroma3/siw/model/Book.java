@@ -31,7 +31,7 @@ public class Book {
      
      private String urlImage;
      
-     @ManyToMany
+     @ManyToMany(mappedBy = "books")
      private List<Author> authors;
      
      @OneToMany(mappedBy = "book")
@@ -94,6 +94,16 @@ public class Book {
 		return Objects.equals(authors, other.authors) && Objects.equals(id, other.id)
 				&& Objects.equals(title, other.title) && Objects.equals(urlImage, other.urlImage)
 				&& Objects.equals(year, other.year);
+	}
+	
+	public void addAuthor(Author author) {
+	    if (!authors.contains(author)) {
+	        authors.add(author);
+	    }
+	}
+
+	public void removeAuthor(Author author) {
+	    authors.remove(author);
 	}
 	
 }

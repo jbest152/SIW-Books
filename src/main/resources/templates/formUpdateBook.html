@@ -1,43 +1,72 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>New Book</title>
-   <!---- <link rel="stylesheet" href="/stile.css?version=3" /> -->
+    <title>Modifica libro</title>
+    <!-- <link rel="stylesheet" href="/stile.css?version=3" /> -->
   </head>
   <body>
     <div><a href="/"><img src="/logo-siw.png" width="20%"/></a></div>
-	<div th:replace="fragments/nav :: navbar"></div>
+    <div th:replace="fragments/nav :: navbar"></div>
     <h1>Modifica libro</h1>
+
+    <!-- FORM principale libro -->
     <form th:action="@{/book}" method="POST" th:object="${book}">
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
       <div>
-		<input type="hidden" th:field="*{id}" />
-        <label>Titolo:</label> <span><input required type="text" th:field="${book.title}"/></span>
+        <input type="hidden" th:field="*{id}" />
+        <label>Titolo:</label>
+        <span><input required type="text" th:field="*{title}" /></span>
         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
       </div>
       <div>
-        <label>Anno:</label><span><input required type="text" th:field="${book.year}"/></span>
+        <label>Anno:</label>
+        <span><input required type="number" th:field="*{year}" /></span>
         <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
       </div>
       <div>
-        <label>URL immagine:</label><span><input type="url" th:field="${book.urlImage}" /></span>
+        <label>URL immagine:</label>
+        <span><input type="url" th:field="*{urlImage}" /></span>
       </div>
-	  
-	  <div>
-		<h1> Autori</h1>
-		
-		<select th:field="*{authors}" multiple>
-			<option th:each="author : ${authors}"
-					th:value="${author.id}"
-					th:text="${author.name + ' ' + author.surname}">
-			</option>
-		</select>
-			   
-	  </div>
-	  
       <div>
         <span><button type="submit">Conferma</button></span>
       </div>
     </form>
+
+    <hr/>
+
+    <!-- Autori associati con form rimuovi separato -->
+    <h2>Autori associati</h2>
+    <ul>
+      <li th:each="author : ${book.authors}">
+        <span th:text="${author.name + ' ' + author.surname}"></span>
+        <form th:action="@{/book/{id}/removeAuthor(id=${book.id})}" method="post" style="display:inline;">
+          <input type="hidden" name="authorId" th:value="${author.id}" />
+          <button type="submit">Rimuovi</button>
+        </form>
+      </li>
+    </ul>
+
+    <hr/>
+
+    <!-- Autori disponibili con form aggiungi separato -->
+    <h2>Autori disponibili</h2>
+    <ul>
+      <li th:each="author : ${authors}">
+        <div th:if="${!book.authors.contains(author)}">
+          <span th:text="${author.name + ' ' + author.surname}"></span>
+          <form th:action="@{/book/{id}/addAuthor(id=${book.id})}" method="post" style="display:inline;">
+            <input type="hidden" name="authorId" th:value="${author.id}" />
+            <button type="submit">Aggiungi</button>
+          </form>
+        </div>
+      </li>
+    </ul>
+	
+	<div style="margin-top: 20px;">
+	  <form th:action="@{/book/{id}(id=${book.id})}" method="get">
+	    <button type="submit">Conferma modifiche</button>
+	  </form>
+	</div>
+
   </body>
 </html>
