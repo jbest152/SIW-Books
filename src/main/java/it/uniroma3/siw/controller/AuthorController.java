@@ -40,7 +40,7 @@ public class AuthorController {
 	public String showAllAuthors(Model model) {
 		model.addAttribute("isAdmin", false);
 		model.addAttribute("authors", this.authorService.getAllAuthors());
-		return "authors.html";
+		return "list/authors.html";
 	}
 
 	@GetMapping("/formNewAuthor")
@@ -53,7 +53,7 @@ public class AuthorController {
 	public String updateAuthors(Model model) {
 		model.addAttribute("isAdmin", true);
 		model.addAttribute("authors", this.authorService.getAllAuthors());
-		return "authors.html";
+		return "list/authors.html";
 	}
 
 	@GetMapping("/author/{id}/update")

@@ -37,7 +37,7 @@ public class BookController {
 	public String showAllBooks(Model model) {
 		model.addAttribute("isAdmin", false);
 		model.addAttribute("books", this.bookService.getAllBooks());
-		return "books.html";
+		return "list/books.html";
 	}
 
 	@GetMapping("/formNewBook")
@@ -48,7 +48,7 @@ public class BookController {
 
 	@PostMapping("/book")
 	public String newBook(@Valid @ModelAttribute("book") Book book,BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {         //Sono emersi errori nel binding
+		if(bindingResult.hasErrors()) {
 			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
 			return "form/formNewBook.html";
 		} 
@@ -63,7 +63,7 @@ public class BookController {
 	public String updateBooks(Model model) {
 		model.addAttribute("isAdmin", true);
 		model.addAttribute("books", this.bookService.getAllBooks());
-		return "books.html";
+		return "list/books.html";
 	}
 	
 	@GetMapping("/book/{id}/update")
