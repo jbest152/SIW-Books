@@ -3,7 +3,7 @@
 
 <head>
 	<title>
-		Home SIW-Movie
+		Home SIW-Books
 	</title>
 	<link rel="stylesheet" href="/css/stile.css" />
 </head>
@@ -15,6 +15,10 @@
 	
 
   <!-- Serve avere l'userDetails nel form e controllarlo, dopo che lo aggiunto come default ad ogni vista-->
+  <h1>Benvenuto <span th:text="${username}"></span>!</h1>
+  	<div>
+  		<a href="/login">login</a>
+  	</div>
 
 	<div>
 		<a href="/bookIndex">Operazioni sui libri</a>
