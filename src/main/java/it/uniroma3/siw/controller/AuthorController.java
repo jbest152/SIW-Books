@@ -60,7 +60,7 @@ public class AuthorController {
 	public String updateBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("author", this.authorService.getAuthorById(id));    
 		model.addAttribute("books", this.bookService.getAllBooks());
-		return "formUpdateAuthor.html";
+		return "form/formUpdateAuthor.html";
 	}
 
 
@@ -68,7 +68,7 @@ public class AuthorController {
 	public String createOrUpdateAuthor(@Valid @ModelAttribute("author") Author author,BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-			return "formNewAuthor.html";
+			return "form/formNewAuthor.html";
 		} 
 
 		if (author.getId() != null) {

@@ -48,7 +48,7 @@ public class AuthenticationController {
                 Model model) {
 
         if(userBindingResult.hasErrors() || credentialsBindingResult.hasErrors()) {
-        	return "formRegisterUser";
+        	return "form/formRegisterUser";
         }
         
         userService.saveUser(user);
@@ -60,7 +60,7 @@ public class AuthenticationController {
 	
 	@GetMapping("/login") 
 	public String login() {
-		return "formLogin";
+		return "form/formLogin";
 	}
 
 	@GetMapping("/") 
