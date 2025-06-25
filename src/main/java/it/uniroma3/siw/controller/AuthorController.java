@@ -33,34 +33,34 @@ public class AuthorController {
 	@GetMapping("/author/{id}")
 	public String getAuthor(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("author", this.authorService.getAuthorById(id));    
-		return "author.html";
+		return "detail/author.html";
 	}
 
 	@GetMapping("/authors")
 	public String showAllAuthors(Model model) {
 		model.addAttribute("isAdmin", false);
 		model.addAttribute("authors", this.authorService.getAllAuthors());
-		return "authors.html";
+		return "list/authors.html";
 	}
 
 	@GetMapping("/formNewAuthor")
 	public String formNewAuthor(Model model) {
 		model.addAttribute("author", new Author());
-		return "formNewAuthor.html";
+		return "form/create/formNewAuthor.html";
 	}
 
 	@GetMapping("/updateAuthors")
 	public String updateAuthors(Model model) {
 		model.addAttribute("isAdmin", true);
 		model.addAttribute("authors", this.authorService.getAllAuthors());
-		return "authors.html";
+		return "list/authors.html";
 	}
 
 	@GetMapping("/author/{id}/update")
 	public String updateBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("author", this.authorService.getAuthorById(id));    
 		model.addAttribute("books", this.bookService.getAllBooks());
-		return "formUpdateAuthor.html";
+		return "form/update/formUpdateAuthor.html";
 	}
 
 
@@ -68,7 +68,7 @@ public class AuthorController {
 	public String createOrUpdateAuthor(@Valid @ModelAttribute("author") Author author,BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-			return "formNewAuthor.html";
+			return "form/create/formNewAuthor.html";
 		} 
 
 		if (author.getId() != null) {

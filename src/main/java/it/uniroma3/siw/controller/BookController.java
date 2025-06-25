@@ -30,27 +30,27 @@ public class BookController {
 	@GetMapping("/book/{id}")
     public String getBook(@PathVariable("id") Long id, Model model) {
         model.addAttribute("book", this.bookService.getBookById(id));    
-        return "book.html";
+        return "detail/book.html";
     }
 	
 	@GetMapping("/books")
 	public String showAllBooks(Model model) {
 		model.addAttribute("isAdmin", false);
 		model.addAttribute("books", this.bookService.getAllBooks());
-		return "books.html";
+		return "list/books.html";
 	}
 
 	@GetMapping("/formNewBook")
 	public String formNewBook(Model model) {
 		model.addAttribute("book", new Book());
-		return "formNewBook.html";
+		return "form/create/formNewBook.html";
 	}
 
 	@PostMapping("/book")
 	public String newBook(@Valid @ModelAttribute("book") Book book,BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {         //Sono emersi errori nel binding
+		if(bindingResult.hasErrors()) {
 			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-			return "formNewBook.html";
+			return "form/create/formNewBook.html";
 		} 
 		else {
 			this.bookService.saveBook(book);
@@ -63,14 +63,14 @@ public class BookController {
 	public String updateBooks(Model model) {
 		model.addAttribute("isAdmin", true);
 		model.addAttribute("books", this.bookService.getAllBooks());
-		return "books.html";
+		return "list/books.html";
 	}
 	
 	@GetMapping("/book/{id}/update")
 	 public String updateBook(@PathVariable("id") Long id, Model model) {
         model.addAttribute("book", this.bookService.getBookById(id));    
         model.addAttribute("authors", this.authorService.getAllAuthors());
-        return "formUpdateBook.html";
+        return "form/update/formUpdateBook.html";
     }
 	
 	@PostMapping("/book/{id}/delete")
