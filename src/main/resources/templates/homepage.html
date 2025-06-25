@@ -1,30 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
 
 <head>
-	<title>
-		Home SIW-Books
-	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+  <title>Home</title>
 </head>
 
 <body>
-	<div><a href="/"><img src="/images/logo-siw.png" width="20%"></a></div>
-	<div th:replace="~{fragments/nav :: navbar}"></div>
+  <section layout:fragment="content">
+    <h1>Benvenuto <span th:text="${username}"></span>!</h1>
 
-	
-
-  <!-- Serve avere l'userDetails nel form e controllarlo, dopo che lo aggiunto come default ad ogni vista-->
-  <h1>Benvenuto <span th:text="${username}"></span>!</h1>
-	
-	<div sec:authorize="hasAuthority('ADMIN')">
-		<div>
-			<a href="admin/bookIndex">Operazioni sui libri</a>
-		</div>
-		<div>
-			<a href="admin/authorIndex">Operazioni sugli autori</a>
-		</div>
-	</div>
+    <div sec:authorize="hasAuthority('ADMIN')">
+      <a href="admin/bookIndex">Operazioni sui libri</a><br>
+      <a href="admin/authorIndex">Operazioni sugli autori</a>
+    </div>
+  </section>
 </body>
-
 </html>

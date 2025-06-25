@@ -1,0 +1,38 @@
+/* Navbar container */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 2rem;
+    background-color: #2c3e50;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Navbar links */
+nav ul li a,
+nav ul li button {
+    text-decoration: none;
+    color: #ecf0f1;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+/* Hover effect */
+nav ul li a:hover,
+nav ul li button:hover {
+    color: #1abc9c;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

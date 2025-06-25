@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <title layout:title-pattern="$CONTENT_TITLE - SIW Books">SIW Books</title>
+</head>
+
+<body>
+  <header>
+    <a href="/"><img src="/images/logo-siw.png" width="20%"></a>
+    <div th:replace="fragments/nav :: navbar"></div>
+  </header>
+
+  <main layout:fragment="content"></main>
+
+  <footer>
+    <p>&copy; 2025 - SIW Books</p>
+  </footer>
+</body>
+</html>
