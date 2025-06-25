@@ -38,7 +38,7 @@ public class AuthenticationController {
 	public String showRegisterForm (Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
-		return "formRegisterUser";
+		return "form/auth/formRegisterUser";
 	}
 
 	@PostMapping("/register")
@@ -57,7 +57,7 @@ public class AuthenticationController {
         credentials.setUser(user);
         credentialsService.saveCredentials(credentials);
         model.addAttribute("user", user);
-        return "registrationSuccessful";
+        return "redirect:/login";
     }
 	
 	@GetMapping("/login") 
