@@ -10,7 +10,7 @@
 <body>
   <header>
     <a href="/"><img src="/images/logo-siw.png" width="20%"></a>
-    <div th:replace="fragments/nav :: navbar"></div>
+    <div th:replace="~{fragments/nav :: navbar}"></div>
   </header>
 
   <main layout:fragment="content"></main>

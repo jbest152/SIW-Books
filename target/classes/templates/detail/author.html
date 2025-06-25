@@ -4,11 +4,12 @@
       layout:decorate="~{fragments/layout}">
 <head>
   <title th:text="${author != null} ? ${author.name + ' ' + author.surname} : 'Autore'">Autore</title>
+  <link rel="stylesheet" href="/css/author.css" />
 </head>
 
 <body>
   <section layout:fragment="content">
-
+	
     <div th:if="${author}">
       <h1 th:text="${author.name + ' ' + author.surname}"></h1>
       <div>Nazionalità: <span th:text="${author.nationality}"></span></div>
