@@ -9,11 +9,11 @@ public class HomepageController {
 
 	@GetMapping("/bookIndex")
 	public String homeBook(Model model) {
-		return "bookIndex.html";
+		return "admin/bookIndex.html";
 	}
 	
 	@GetMapping("/authorIndex")
 	public String homeAuthor(Model model) {
-		return "authorIndex.html";
+		return "admin/authorIndex.html";
 	}
 }
