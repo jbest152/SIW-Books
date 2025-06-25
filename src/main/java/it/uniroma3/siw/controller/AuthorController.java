@@ -33,7 +33,7 @@ public class AuthorController {
 	@GetMapping("/author/{id}")
 	public String getAuthor(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("author", this.authorService.getAuthorById(id));    
-		return "author.html";
+		return "detail/author.html";
 	}
 
 	@GetMapping("/authors")

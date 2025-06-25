@@ -30,7 +30,7 @@ public class BookController {
 	@GetMapping("/book/{id}")
     public String getBook(@PathVariable("id") Long id, Model model) {
         model.addAttribute("book", this.bookService.getBookById(id));    
-        return "book.html";
+        return "detail/book.html";
     }
 	
 	@GetMapping("/books")
