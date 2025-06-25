@@ -56,15 +56,16 @@ a:hover {
   text-decoration: underline;
 }
 
-div[th\\:if="${author.books.isEmpty()}"] {
+.empty-info {
   font-style: italic;
   color: #666;
   margin-top: 20px;
 }
 
-div[th\\:unless="${author}"] {
+.not-found {
   font-weight: bold;
   color: #b30000;
   text-align: center;
   margin-top: 40px;
 }
+

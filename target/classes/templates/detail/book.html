@@ -17,7 +17,10 @@
         <img th:src="${book.urlImage}" width="30%" alt="Copertina libro"/>
       </div>
 
-      <div th:if="${book.authors.isEmpty()}">Il libro non ha autori</div>
+	  <div th:if="${book.authors.isEmpty()}" class="empty-info">
+	    Il libro non ha autori
+	  </div>
+	  
       <ul>
         <li th:each="author : ${book.authors}">
           <a th:href="@{'/author/' + ${author.id}}"
@@ -25,7 +28,10 @@
         </li>
       </ul>
 
-      <div th:if="${book.reviews.isEmpty()}">Il libro non ha recensioni</div>
+	  <div th:if="${book.reviews.isEmpty()}" class="empty-reviews">
+	    Il libro non ha recensioni
+	  </div>
+	  
       <ul>
         <li th:each="review : ${book.reviews}">
           <a th:href="@{'/review/' + ${review.id}}"
@@ -33,10 +39,9 @@
         </li>
       </ul>
 
-      <a sec:authorize="isAuthenticated()" 
-         th:href="@{'/book/' + ${book.id} + '/review'}">
-         Aggiungi una recensione
-      </a>
+	  <a sec:authorize="isAuthenticated()" th:href="@{'/book/' + ${book.id} + '/review'}" class="review-button">
+	    Aggiungi una recensione
+	  </a>
     </div>
 
     <div th:unless="${book}">Non esiste</div>
