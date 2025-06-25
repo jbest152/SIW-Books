@@ -30,7 +30,7 @@ public class ReviewController {
 
         model.addAttribute("review", review);
         model.addAttribute("book", book);
-        return "form/formNewReview.html";
+        return "form/create/formNewReview.html";
     }
 
 

@@ -43,14 +43,14 @@ public class BookController {
 	@GetMapping("/formNewBook")
 	public String formNewBook(Model model) {
 		model.addAttribute("book", new Book());
-		return "form/formNewBook.html";
+		return "form/create/formNewBook.html";
 	}
 
 	@PostMapping("/book")
 	public String newBook(@Valid @ModelAttribute("book") Book book,BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-			return "form/formNewBook.html";
+			return "form/create/formNewBook.html";
 		} 
 		else {
 			this.bookService.saveBook(book);
@@ -70,7 +70,7 @@ public class BookController {
 	 public String updateBook(@PathVariable("id") Long id, Model model) {
         model.addAttribute("book", this.bookService.getBookById(id));    
         model.addAttribute("authors", this.authorService.getAllAuthors());
-        return "form/formUpdateBook.html";
+        return "form/update/formUpdateBook.html";
     }
 	
 	@PostMapping("/book/{id}/delete")

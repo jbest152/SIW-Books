@@ -46,7 +46,7 @@ public class AuthorController {
 	@GetMapping("/formNewAuthor")
 	public String formNewAuthor(Model model) {
 		model.addAttribute("author", new Author());
-		return "formNewAuthor.html";
+		return "form/create/formNewAuthor.html";
 	}
 
 	@GetMapping("/updateAuthors")
@@ -60,7 +60,7 @@ public class AuthorController {
 	public String updateBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("author", this.authorService.getAuthorById(id));    
 		model.addAttribute("books", this.bookService.getAllBooks());
-		return "form/formUpdateAuthor.html";
+		return "form/update/formUpdateAuthor.html";
 	}
 
 
@@ -68,7 +68,7 @@ public class AuthorController {
 	public String createOrUpdateAuthor(@Valid @ModelAttribute("author") Author author,BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-			return "form/formNewAuthor.html";
+			return "form/create/formNewAuthor.html";
 		} 
 
 		if (author.getId() != null) {
