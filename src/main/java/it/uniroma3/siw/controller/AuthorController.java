@@ -36,9 +36,8 @@ public class AuthorController {
 		return "detail/author.html";
 	}
 
-	@GetMapping("/authors")
+	@GetMapping("/author")
 	public String showAllAuthors(Model model) {
-		model.addAttribute("isAdmin", false);
 		model.addAttribute("authors", this.authorService.getAllAuthors());
 		return "list/authors.html";
 	}

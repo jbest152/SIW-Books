@@ -33,9 +33,8 @@ public class BookController {
         return "detail/book.html";
     }
 	
-	@GetMapping("/books")
+	@GetMapping("/book")
 	public String showAllBooks(Model model) {
-		model.addAttribute("isAdmin", false);
 		model.addAttribute("books", this.bookService.getAllBooks());
 		return "list/books.html";
 	}

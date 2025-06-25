@@ -72,6 +72,8 @@ public class AuthenticationController {
 	
 	@GetMapping("/home")
     public String home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+		if (userDetails == null)
+			return "redirect:/";
 		boolean isAdmin = userDetails.getAuthorities().stream()
 			    .anyMatch(auth -> auth.getAuthority().equals(ADMIN_ROLE));
         model.addAttribute("username", userDetails.getUsername());
