@@ -20,15 +20,10 @@ import jakarta.validation.Valid;
 @Controller
 public class AuthorController {
 
-	private final UserRepository userRepository;
 	@Autowired
 	private AuthorService authorService;
 	@Autowired
 	private BookService bookService;
-
-	AuthorController(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
 
 	@GetMapping("/author/{id}")
 	public String getAuthor(@PathVariable("id") Long id, Model model) {

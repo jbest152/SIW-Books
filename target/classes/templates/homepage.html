@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<title>
@@ -16,11 +16,8 @@
 
   <!-- Serve avere l'userDetails nel form e controllarlo, dopo che lo aggiunto come default ad ogni vista-->
   <h1>Benvenuto <span th:text="${username}"></span>!</h1>
-  	<div>
-  		<a href="/login">login</a>
-  	</div>
 	
-	<div th:if="${isAdmin}">
+	<div sec:authorize="hasAuthority('ADMIN')">
 		<div>
 			<a href="admin/bookIndex">Operazioni sui libri</a>
 		</div>
