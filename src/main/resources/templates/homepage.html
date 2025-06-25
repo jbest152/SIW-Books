@@ -19,12 +19,14 @@
   	<div>
   		<a href="/login">login</a>
   	</div>
-
-	<div>
-		<a href="/bookIndex">Operazioni sui libri</a>
-	</div>
-	<div>
-		<a href="/authorIndex">Operazioni sugli autori</a>
+	
+	<div th:if="${isAdmin}">
+		<div>
+			<a href="admin/bookIndex">Operazioni sui libri</a>
+		</div>
+		<div>
+			<a href="admin/authorIndex">Operazioni sugli autori</a>
+		</div>
 	</div>
 </body>
 

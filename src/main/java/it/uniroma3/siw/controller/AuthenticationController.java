@@ -23,6 +23,8 @@ import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
+import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
+
 @Controller
 public class AuthenticationController {
 
@@ -70,7 +72,10 @@ public class AuthenticationController {
 	
 	@GetMapping("/home")
     public String home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+		boolean isAdmin = userDetails.getAuthorities().stream()
+			    .anyMatch(auth -> auth.getAuthority().equals(ADMIN_ROLE));
         model.addAttribute("username", userDetails.getUsername());
+        model.addAttribute("isAdmin", isAdmin);
         return "homepage";
     }
 		
