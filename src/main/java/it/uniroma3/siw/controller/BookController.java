@@ -40,7 +40,7 @@ public class BookController {
 		return "list/books.html";
 	}
 
-	@GetMapping("/formNewBook")
+	@GetMapping("admin/formNewBook")
 	public String formNewBook(Model model) {
 		model.addAttribute("book", new Book());
 		return "form/create/formNewBook.html";
@@ -59,24 +59,24 @@ public class BookController {
 	}
 	
 	
-	@GetMapping("/updateBooks")
+	@GetMapping("admin/updateBooks")
 	public String updateBooks(Model model) {
 		model.addAttribute("isAdmin", true);
 		model.addAttribute("books", this.bookService.getAllBooks());
 		return "list/books.html";
 	}
 	
-	@GetMapping("/book/{id}/update")
+	@GetMapping("admin/book/{id}/update")
 	 public String updateBook(@PathVariable("id") Long id, Model model) {
         model.addAttribute("book", this.bookService.getBookById(id));    
         model.addAttribute("authors", this.authorService.getAllAuthors());
         return "form/update/formUpdateBook.html";
     }
 	
-	@PostMapping("/book/{id}/delete")
+	@PostMapping("admin/book/{id}/delete")
 	public String deleteBook(@PathVariable Long id) {
 	    bookService.deleteById(id);
-	    return "redirect:/updateBooks";
+	    return "redirect:/admin/updateBooks";
 	}
 	
 	@PostMapping("/book/{id}/addAuthor")
@@ -87,7 +87,7 @@ public class BookController {
 	    author.addBook(book);
 	    authorService.saveAuthor(author);
 
-	    return "redirect:/book/" + id + "/update";
+	    return "redirect:/admin/book/" + id + "/update";
 	}
 
 
@@ -99,7 +99,7 @@ public class BookController {
 	    author.removeBook(book);
 	    authorService.saveAuthor(author);
 
-	    return "redirect:/book/" + id + "/update";
+	    return "redirect:/admin/book/" + id + "/update";
 	}
 
 	

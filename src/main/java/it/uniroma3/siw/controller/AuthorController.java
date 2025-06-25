@@ -43,26 +43,25 @@ public class AuthorController {
 		return "list/authors.html";
 	}
 
-	@GetMapping("/formNewAuthor")
+	@GetMapping("admin/formNewAuthor")
 	public String formNewAuthor(Model model) {
 		model.addAttribute("author", new Author());
 		return "form/create/formNewAuthor.html";
 	}
 
-	@GetMapping("/updateAuthors")
+	@GetMapping("admin/updateAuthors")
 	public String updateAuthors(Model model) {
 		model.addAttribute("isAdmin", true);
 		model.addAttribute("authors", this.authorService.getAllAuthors());
 		return "list/authors.html";
 	}
 
-	@GetMapping("/author/{id}/update")
+	@GetMapping("admin/author/{id}/update")
 	public String updateBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("author", this.authorService.getAuthorById(id));    
 		model.addAttribute("books", this.bookService.getAllBooks());
 		return "form/update/formUpdateAuthor.html";
 	}
-
 
 	@PostMapping("/author")
 	public String createOrUpdateAuthor(@Valid @ModelAttribute("author") Author author,BindingResult bindingResult, Model model) {
@@ -81,10 +80,10 @@ public class AuthorController {
 
 	}
 
-	@PostMapping("/author/{id}/delete")
+	@PostMapping("admin/author/{id}/delete")
 	public String deleteAuthor(@PathVariable Long id) {
 		authorService.deleteById(id);
-		return "redirect:/updateAuthors";
+		return "redirect:/admin/updateAuthors";
 	}
 
 	@PostMapping("/author/{id}/addBook")
@@ -94,7 +93,7 @@ public class AuthorController {
 		author.addBook(bookService.getBookById(bookId));
 		authorService.saveAuthor(author);
 
-		return "redirect:/author/" + id + "/update";
+		return "redirect:/admin/author/" + id + "/update";
 	}
 
 	@PostMapping("/author/{id}/removeBook")
@@ -104,8 +103,6 @@ public class AuthorController {
 		author.removeBook(bookService.getBookById(bookId));
 		authorService.saveAuthor(author);
 
-		return "redirect:/author/"+ id + "/update";
+		return "redirect:/admin/author/"+ id + "/update";
 	}
-
-
 }
