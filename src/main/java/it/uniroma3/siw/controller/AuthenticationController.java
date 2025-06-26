@@ -31,7 +31,7 @@ public class AuthenticationController {
 	public String showRegisterForm (Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
-		return "form/auth/formRegisterUser";
+		return "form/auth/formRegister";
 	}
 
 	@PostMapping("/register")
@@ -43,7 +43,7 @@ public class AuthenticationController {
                 Model model) {
 
         if(userBindingResult.hasErrors() || credentialsBindingResult.hasErrors()) {
-        	return "form/auth/formRegisterUser";
+        	return "form/auth/formRegister";
         }
         
         userService.saveUser(user);
@@ -67,10 +67,7 @@ public class AuthenticationController {
     public String home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 		if (userDetails == null)
 			return "redirect:/";
-		boolean isAdmin = userDetails.getAuthorities().stream()
-			    .anyMatch(auth -> auth.getAuthority().equals(ADMIN_ROLE));
         model.addAttribute("username", userDetails.getUsername());
-        model.addAttribute("isAdmin", isAdmin);
         return "homepage";
     }
 		

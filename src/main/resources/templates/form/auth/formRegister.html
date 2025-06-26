@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-form}">
+<head>
+  <title>Registrazione</title>
+</head>
+<body>
+  <section layout:fragment="content">
+    <header>
+      <div th:if="${userDetails}">
+        <span th:text="${userDetails.username}"></span>
+        <a href="/logout">Logout</a>
+      </div>
+      <div th:unless="${user}">
+        <a href="/login">Login</a>
+      </div>
+    </header>
+
+    <div><a href="/"><img src="/images/logo-siw.png" width="20%" /></a></div>
+    <h1>Registrazione nuovo utente</h1>
+
+    <form th:action="@{/register}" method="POST" class="common-form">
+      <label>Nome</label>
+      <input type="text" placeholder="name" required th:field="${user.name}" />
+      <span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" style="color:red"></span>
+
+      <label>Cognome</label>
+      <input type="text" placeholder="surname" required th:field="${user.surname}" />
+      <span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" style="color:red"></span>
+
+      <label>Email</label>
+      <input type="text" placeholder="email" required th:field="${user.email}" />
+      <span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" style="color:red"></span>
+
+      <label>Data di nascita:</label>
+      <input required type="date" th:field="${user.birth}" />
+      <span th:if="${#fields.hasErrors('user.birth')}" th:errors="*{user.birth}"></span>
+
+      <label>Username</label>
+      <input type="text" placeholder="username" required th:field="${credentials.username}" />
+      <span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}" style="color:red"></span>
+
+      <label>Password</label>
+      <input type="password" placeholder="password" required th:field="${credentials.password}" />
+      <span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" style="color:red"></span>
+
+      <button type="submit">Registra</button>
+    </form>
+  </section>
+</body>
+</html>

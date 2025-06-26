@@ -1,27 +1,30 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Libri</title>
-    <link rel="stylesheet" href="/style.css?version=2" />
-  </head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+  <title>Libri</title>
+</head>
 
-  <body>
-	<div th:replace="fragments/nav :: navbar"></div>
-    <div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
+<body>
+  <section layout:fragment="content">
     <h1>Libri</h1>
+
     <div th:if="${books.isEmpty()}">Non ci sono libri nel sistema</div>
+
     <ul>
-      <li th:each="book: ${books}">
-        <a th:href="@{'/book' + '/' + ${book.id}}"
-          th:text="${book.title} + ' (' + ${book.year} + ')'"></a>
-		<div th:if="${isAdmin}">
-			<a th:href="@{'book/' + ${book.id} + '/update'}" > modifica </a>
-			<form th:action="@{'book/' + ${book.id} + '/delete'}" method="POST">
-			  <button type="submit">Elimina</button>
-			</form>
-		</div>
-		
+      <li th:each="book : ${books}">
+        <a th:href="@{'/book/' + ${book.id}}"
+           th:text="${book.title} + ' (' + ${book.year} + ')'"></a>
+        
+        <div th:if="${isAdmin}">
+          <a th:href="@{'/admin/book/' + ${book.id} + '/update'}">modifica</a>
+          <form th:action="@{'/admin/book/' + ${book.id} + '/delete'}" method="post" style="display:inline;">
+            <button type="submit">Elimina</button>
+          </form>
+        </div>
       </li>
     </ul>
-  </body>
+  </section>
+</body>
 </html>

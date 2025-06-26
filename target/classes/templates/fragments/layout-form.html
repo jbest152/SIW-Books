@@ -2,15 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/layout}">
-<head>
-  <title>Gestione Autori</title>
+<head layout:fragment="head">
+  <link rel="stylesheet" href="/css/forms.css" />
 </head>
 
 <body>
   <section layout:fragment="content">
-    <h1><a href="/author">Lista autori</a></h1>
-    <h1><a href="formNewAuthor">Inserisci un nuovo autore</a></h1>
-    <h1><a href="updateAuthors">Gestisci autori</a></h1>
+    <!-- qui il contenuto specifico per i form -->
   </section>
 </body>
 </html>

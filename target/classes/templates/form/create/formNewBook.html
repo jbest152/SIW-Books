@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>New Book</title>
-   <!---- <link rel="stylesheet" href="/stile.css?version=3" /> -->
-  </head>
-  <body>
-    <div><a href="/"><img src="/logo-siw.png" width="20%"/></a></div>
-	<div th:replace="fragments/nav :: navbar"></div>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-form}">
+<head>
+  <title>New Book</title>
+</head>
+<body>
+  <section layout:fragment="content">
     <h1>Aggiungi un libro</h1>
-    <form th:action="@{/book}" method="POST" th:object="${book}">
+    <form th:action="@{/book}" method="POST" th:object="${book}" class="common-form">
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-      <div>
-        <label>Titolo:</label> <span><input required type="text" th:field="${book.title}"/></span>
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-      </div>
-      <div>
-        <label>Anno:</label><span><input required type="text" th:field="${book.year}"/></span>
-        <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
-      </div>
-      <div>
-        <label>URL immagine:</label><span><input type="url" th:field="${book.urlImage}" /></span>
-      </div>
-      <div>
-        <span><button type="submit">Conferma</button></span>
-      </div>
+
+      <label>Titolo:</label>
+      <input required type="text" th:field="*{title}" />
+      <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+
+      <label>Anno:</label>
+      <input required type="text" th:field="*{year}" />
+      <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
+
+      <label>URL immagine:</label>
+      <input type="url" th:field="*{urlImage}" />
+
+      <button type="submit">Conferma</button>
     </form>
-  </body>
+  </section>
+</body>
 </html>

@@ -1,60 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>New Author</title>
-    <!-- <link rel="stylesheet" href="/stile.css?version=3" /> -->
-  </head>
-  <body>
-    <div>
-      <a href="/"><img src="/logo-siw.png" width="20%"/></a>
-    </div>
-
-    <div th:replace="fragments/nav :: navbar"></div>
-
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-form}">
+<head>
+  <title>New Author</title>
+</head>
+<body>
+  <section layout:fragment="content">
     <h1>Aggiungi un autore</h1>
-
-    <form th:action="@{/author}" method="POST" th:object="${author}">
+    <form th:action="@{/author}" method="POST" th:object="${author}" class="common-form">
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+      <input type="hidden" th:field="*{id}" />
+      <label>Nome:</label>
+      <input required type="text" th:field="*{name}" />
+      <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
-      <div>
-        <input type="hidden" th:field="*{id}" />
-        
-        <label>Nome:</label>
-        <span><input required type="text" th:field="*{name}" /></span>
-        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-      </div>
+      <label>Cognome:</label>
+      <input required type="text" th:field="*{surname}" />
+      <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
 
-      <div>
-        <label>Cognome:</label>
-        <span><input required type="text" th:field="*{surname}" /></span>
-        <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
-      </div>
+      <label>Nazionalità:</label>
+      <input required type="text" th:field="*{nationality}" />
+      <span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></span>
 
-      <div>
-        <label>Nazionalità:</label>
-        <span><input required type="text" th:field="*{nationality}" /></span>
-        <span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></span>
-      </div>
+      <label>Data di nascita:</label>
+      <input required type="date" th:field="*{dateOfBirth}" />
+      <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
 
-      <div>
-        <label>Data di nascita:</label>
-        <span><input required type="date" th:field="*{dateOfBirth}" /></span>
-        <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
-      </div>
+      <label>Data di morte:</label>
+      <input type="date" th:field="*{dateOfDeath}" />
 
-      <div>
-        <label>Data di morte:</label>
-        <span><input type="date" th:field="*{dateOfDeath}" /></span>
-      </div>
+      <label>URL immagine:</label>
+      <input type="url" th:field="*{urlImage}" />
 
-      <div>
-        <label>URL immagine:</label>
-        <span><input type="url" th:field="*{urlImage}" /></span>
-      </div>
-
-      <div>
-        <span><button type="submit">Conferma</button></span>
-      </div>
+      <button type="submit">Conferma</button>
     </form>
-  </body>
+  </section>
+</body>
 </html>

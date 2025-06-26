@@ -1,49 +1,36 @@
 <!DOCTYPE html>
-<html>
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-form}">
 <head>
-	<title>
-		SiwMovie - Login
-	</title>
-	<!--<link rel="stylesheet" href="/css/stile.css" /> -->
+  <title>Login</title>
 </head>
-
 <body>
+  <section layout:fragment="content">
+    <div><a href="/"><img src="/images/logo-siw.png" width="20%"/></a></div>
+    <h1>Login</h1>
 
-	<div>
-		<a href="/"><img src="/images/logo-siw.png" width="20%"/></a>
-	</div>
-	<h1>Login</h1>
-	
-	<form th:action="@{/loginAsUser}" method="POST">
-	    <button type="submit">Login come Utente</button>
-	</form>
+    <form th:action="@{/loginAsUser}" method="POST" class="common-form">
+      <button type="submit">Login come Utente</button>
+    </form>
 
-	<form th:action="@{/loginAsAdmin}" method="POST">
-	    <button type="submit">Login come Admin</button>
-	</form>
+    <form th:action="@{/loginAsAdmin}" method="POST" class="common-form">
+      <button type="submit">Login come Admin</button>
+    </form>
 
-	
-	
-	<form th:action="@{/login}" method="POST">
-		<div>
-			<span>Username:</span>
-			<span><input name="username" type="text" required /></span>
-		</div>
-		<div>
-			<span>Password:</span>
-			<span><input name="password" type="password" required /></span>
-		</div>
-		<div>
-			<span th:if="${param.error != null}">Username o password errati</span>
-		</div>
-		<div>
-			<span><button type="submit">Login</button></span>
-		</div>
-	</form>
-	<div>
-		<a th:href="@{/register}">Registrati</a>
-	</div>
+    <form th:action="@{/login}" method="POST" class="common-form">
+      <label>Username:</label>
+      <input name="username" type="text" required />
+
+      <label>Password:</label>
+      <input name="password" type="password" required />
+
+      <div th:if="${param.error != null}" style="color: red;">Username o password errati</div>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div><a th:href="@{/register}">Registrati</a></div>
+  </section>
 </body>
-
 </html>
