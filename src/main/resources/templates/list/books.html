@@ -18,8 +18,8 @@
            th:text="${book.title} + ' (' + ${book.year} + ')'"></a>
         
         <div th:if="${isAdmin}">
-          <a th:href="@{'/book/' + ${book.id} + '/update'}">modifica</a>
-          <form th:action="@{'/book/' + ${book.id} + '/delete'}" method="post" style="display:inline;">
+          <a th:href="@{'/admin/book/' + ${book.id} + '/update'}">modifica</a>
+          <form th:action="@{'/admin/book/' + ${book.id} + '/delete'}" method="post" style="display:inline;">
             <button type="submit">Elimina</button>
           </form>
         </div>
