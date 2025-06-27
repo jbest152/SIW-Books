@@ -1,10 +1,12 @@
+/* ========== Reset base ========== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
+/* ========== Layout generale ========== */
+body.layout {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f7f9fb;
   color: #2c3e50;
@@ -14,39 +16,42 @@ body {
   flex-direction: column;
 }
 
+/* ========== Header con logo e navbar ========== */
 .header-container {
   display: flex;
-  justify-content: space-between; /* logo a sinistra, navbar a destra */
+  justify-content: space-between;
   align-items: center;
   background-color: #2c3e50;
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Logo */
 .header-logo img {
   height: 40px;
   width: auto;
+  display: block;
 }
 
-
-
+/* ========== Contenuto principale ========== */
 .main-content {
   flex-grow: 1;
   max-width: 1000px;
   width: 100%;
   margin: 2rem auto;
-  padding: 2rem;
-  background-color: #ffffff;
+  padding: 1.5rem;
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   min-height: 70vh;
 }
 
-/* Responsive per schermi piccoli */
+/* ========== Responsive ========== */
 @media (max-width: 768px) {
   .header-container {
+    flex-direction: column;
     padding: 1rem;
-    justify-content: center;
+    text-align: center;
   }
 
   .main-content {

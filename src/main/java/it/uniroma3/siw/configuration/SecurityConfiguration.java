@@ -50,7 +50,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(requests -> requests
             	.requestMatchers(HttpMethod.POST, "/loginAsUser", "/loginAsAdmin", "/test-login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/test", "/", "/home", "/register", "/login", "/css/**", "/images/**", "/favicon.ico", "/js/**", "/webjars/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/book/**", "/author/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/book/**", "/author/**", "review/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
                 .requestMatchers("/admin/**").hasAuthority(ADMIN_ROLE)
                 .anyRequest().authenticated()

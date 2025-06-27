@@ -33,7 +33,7 @@ public class TestLoginController {
 
 	@PostMapping("/loginAsUser")
 	public String loginAsUser(HttpServletRequest request) {
-	    doLogin("utente", DEFAULT_ROLE, request);
+	    doLogin("user", DEFAULT_ROLE, request);
 	    return "redirect:/home";
 	}
 

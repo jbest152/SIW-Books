@@ -6,25 +6,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title layout:title-pattern="$CONTENT_TITLE - SIW Books">SIW Books</title>
+
+  <!-- Stili comuni a tutte le pagine -->
   <link rel="stylesheet" href="/css/layout.css" />
+
+  <!-- Navbar e footer separati -->
   <link rel="stylesheet" href="/css/navbar.css" />
   <link rel="stylesheet" href="/css/footer.css" />
+
+  <!-- Stili specifici delle pagine saranno caricati nei file figli -->
 </head>
 
-<body>
-	<div class="header-container">
-	  <div class="header-logo">
-	    <a th:href="@{/home}">
-	      <img src="/images/logo.png" alt="Logo SIW" />
-	    </a>
-	  </div>
+<body class="layout">
 
-	  <div th:replace="~{fragments/navbar :: navbar}"></div>
-	</div>
+  <!-- Header con logo e navbar -->
+  <div class="header-container">
+    <div class="header-logo">
+      <a th:href="@{/home}">
+        <img src="/images/logo.png" alt="Logo SIW" />
+      </a>
+    </div>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+  </div>
 
-
+  <!-- Contenuto dinamico della pagina -->
   <main layout:fragment="content" class="main-content"></main>
 
+  <!-- Footer condiviso -->
   <div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>

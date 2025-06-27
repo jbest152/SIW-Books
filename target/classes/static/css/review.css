@@ -1,0 +1,43 @@
+.review-container {
+  max-width: 700px;
+  margin: 3rem auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  background: #fff;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.review-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-align: center;
+  color: #16a085;
+}
+
+.review-rating,
+.review-book,
+.review-author {
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+
+.review-text {
+  margin: 1.5rem 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #34495e;
+}
+
+.review-text p {
+  margin-top: 0.4rem;
+}
+
+.no-review-message {
+  font-style: italic;
+  color: #999;
+  text-align: center;
+  margin-top: 3rem;
+}

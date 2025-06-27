@@ -45,7 +45,7 @@
       <input type="password" placeholder="password" required th:field="${credentials.password}" />
       <span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" style="color:red"></span>
 
-      <button type="submit">Registra</button>
+      <button type="submit" class="btn-submit">Registra</button>
     </form>
   </section>
 </body>

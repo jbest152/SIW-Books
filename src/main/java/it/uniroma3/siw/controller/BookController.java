@@ -1,6 +1,8 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
+import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
+import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.ReviewService;
 import jakarta.validation.Valid;
 
 
@@ -24,15 +30,28 @@ public class BookController {
 	private BookService bookService;
 	@Autowired
 	private AuthorService authorService;
-	
+	@Autowired
+	private ReviewService reviewRepository;
+	@Autowired
+	private CredentialsService credentialsService;
 
-	
+
+
 	@GetMapping("/book/{id}")
-    public String getBook(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("book", this.bookService.getBookById(id));    
-        return "detail/book.html";
-    }
-	
+	public String getBook(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id, Model model) {
+		model.addAttribute("book", this.bookService.getBookById(id));
+		if (userDetails!=null) {
+			Credentials c = credentialsService.getCredentials(userDetails.getUsername());
+			if (c != null) {
+				User user = c.getUser();
+
+				boolean userHasReviewed = reviewRepository.existsByBookIdAndUserId(id, user.getId());
+				model.addAttribute("userHasReviewed", userHasReviewed);
+			}
+		}
+		return "detail/book.html";
+	}
+
 	@GetMapping("/book")
 	public String showAllBooks(Model model) {
 		model.addAttribute("books", this.bookService.getAllBooks());
@@ -56,50 +75,50 @@ public class BookController {
 			return "redirect:/book/"+book.getId();
 		}
 	}
-	
-	
+
+
 	@GetMapping("admin/updateBooks")
 	public String updateBooks(Model model) {
 		model.addAttribute("isAdmin", true);
 		model.addAttribute("books", this.bookService.getAllBooks());
 		return "list/books.html";
 	}
-	
+
 	@GetMapping("admin/book/{id}/update")
-	 public String updateBook(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("book", this.bookService.getBookById(id));    
-        model.addAttribute("authors", this.authorService.getAllAuthors());
-        return "form/update/formUpdateBook.html";
-    }
-	
+	public String updateBook(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("book", this.bookService.getBookById(id));    
+		model.addAttribute("authors", this.authorService.getAllAuthors());
+		return "form/update/formUpdateBook.html";
+	}
+
 	@PostMapping("admin/book/{id}/delete")
 	public String deleteBook(@PathVariable Long id) {
-	    bookService.deleteById(id);
-	    return "redirect:/admin/updateBooks";
+		bookService.deleteById(id);
+		return "redirect:/admin/updateBooks";
 	}
-	
+
 	@PostMapping("/book/{id}/addAuthor")
 	public String addAuthorToBook(@PathVariable Long id, @RequestParam Long authorId) {
-	    Book book = bookService.getBookById(id);
-	    Author author = authorService.getAuthorById(authorId);
+		Book book = bookService.getBookById(id);
+		Author author = authorService.getAuthorById(authorId);
 
-	    author.addBook(book);
-	    authorService.saveAuthor(author);
+		author.addBook(book);
+		authorService.saveAuthor(author);
 
-	    return "redirect:/admin/book/" + id + "/update";
+		return "redirect:/admin/book/" + id + "/update";
 	}
 
 
 	@PostMapping("/book/{id}/removeAuthor")
 	public String removeAuthorFromBook(@PathVariable Long id, @RequestParam Long authorId) {
-	    Book book = bookService.getBookById(id);
-	    Author author = authorService.getAuthorById(authorId);
+		Book book = bookService.getBookById(id);
+		Author author = authorService.getAuthorById(authorId);
 
-	    author.removeBook(book);
-	    authorService.saveAuthor(author);
+		author.removeBook(book);
+		authorService.saveAuthor(author);
 
-	    return "redirect:/admin/book/" + id + "/update";
+		return "redirect:/admin/book/" + id + "/update";
 	}
 
-	
+
 }

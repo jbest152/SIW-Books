@@ -1,87 +1,115 @@
-/* book.css */
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #fefefe;
-  color: #333;
-  margin: 0;
-  padding: 20px;
-}
-
-section {
+.book-container {
   max-width: 700px;
-  margin: 0 auto;
-  background: white;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 3rem auto;
+  background: #fff;
+  padding: 2.5rem 3rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
 }
 
-h1 {
-  font-size: 2.4em;
-  margin-bottom: 12px;
-  color: #003366;
+.book-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  text-align: center;
 }
 
-div {
-  margin: 10px 0;
-  font-size: 1.1em;
+.book-year {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 1.8rem;
+  text-align: center;
 }
 
-img {
-  margin: 15px 0;
-  border-radius: 6px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.15);
-  display: block;
+.book-image-wrapper {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-ul {
-  margin-top: 15px;
-  padding-left: 20px;
+.book-image-wrapper img {
+  width: 40%;
+  max-width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
 }
 
-li {
-  margin-bottom: 8px;
-  font-size: 1.05em;
+.book-image-wrapper img:hover {
+  transform: scale(1.05);
 }
 
-a {
-  color: #0066cc;
+.section-group {
+  margin-bottom: 2.5rem;
+}
+
+.section-group h2 {
+  font-size: 1.5rem;
+  border-bottom: 2px solid #1abc9c;
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+  color: #16a085;
+}
+
+.author-list,
+.review-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.author-list li,
+.review-list li {
+  margin-bottom: 0.8rem;
+}
+
+.author-list li a,
+.review-list li a {
+  color: #0984e3;
+  font-weight: 600;
   text-decoration: none;
-  transition: color 0.25s ease;
-  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-a:hover {
-  color: #004a99;
+.author-list li a:hover,
+.review-list li a:hover {
+  color: #74b9ff;
   text-decoration: underline;
 }
 
 .empty-info {
   font-style: italic;
-  color: #666;
-  margin-top: 20px;
-}
-
-.not-found {
-  font-weight: bold;
-  color: #b30000;
+  color: #999;
   text-align: center;
-  margin-top: 40px;
+  margin: 1rem 0;
 }
 
 .review-button {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 10px 18px;
-  background-color: #007bff;
-  color: white !important;
-  border-radius: 5px;
-  text-decoration: none;
+  display: block;
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #1abc9c;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .review-button:hover {
-  background-color: #0056b3;
+  background-color: #16a085;
+  box-shadow: 0 6px 15px rgba(22, 160, 133, 0.7);
+}
+
+.not-found {
+  margin: 5rem auto;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #b33939;
+  font-weight: 600;
 }

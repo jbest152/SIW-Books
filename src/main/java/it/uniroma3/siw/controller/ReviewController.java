@@ -1,6 +1,10 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,38 +13,70 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Book;
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Review;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.BookService;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ReviewService;
+import it.uniroma3.siw.service.UserService;
 
 @Controller
 public class ReviewController {
 
-    @Autowired
-    private BookService bookService;
+	@Autowired
+	private BookService bookService;
 
-    @Autowired
-    private ReviewService reviewService;
+	@Autowired
+	private ReviewService reviewService;
 
-    @GetMapping("/book/{id}/review")
-    public String showReviewForm(@PathVariable("id") Long id, Model model) {
-        Book book = bookService.getBookById(id);
+	@Autowired
+	private CredentialsService credentialsService;
 
-        Review review = new Review();
+	@GetMapping("/book/{id}/review")
+	public String showReviewForm(@PathVariable("id") Long id, Model model) {
+		Book book = bookService.getBookById(id);
 
-        model.addAttribute("review", review);
-        model.addAttribute("book", book);
-        return "form/create/formNewReview.html";
-    }
+		Review review = new Review();
 
+		model.addAttribute("review", review);
+		model.addAttribute("book", book);
+		return "form/create/formNewReview.html";
+	}
 
-    @PostMapping("/book/{bookId}/newReview")
-    public String saveReview(@PathVariable("bookId") Long bookId, @ModelAttribute Review review) {
-        Book book = bookService.getBookById(bookId);
-        review.setBook(book);
+	@GetMapping("/review/{id}")
+	public String getReviewById(@PathVariable Long id, Model model) {
+		Review review = reviewService.getReviewById(id);
+		model.addAttribute("review", review);
+		return "detail/review";
+	}
 
-        reviewService.saveReview(review);
-        return "redirect:/book/" + bookId;
-    }
+	@PostMapping("/book/{bookId}/newReview")
+	public String saveReview(@AuthenticationPrincipal UserDetails userDetails,@PathVariable("bookId") Long bookId, @ModelAttribute Review review) {
+		Book book = bookService.getBookById(bookId);
+		review.setBook(book);
 
+		// Qui devi ottenere il tuo User dal database usando username da userDetails
+		Credentials c = credentialsService.getCredentials(userDetails.getUsername());
+		if (c == null)
+			System.out.println("nullo");
+		else {
+			User user = c.getUser();
+			if (user == null) {
+				System.out.println("ciao");
+			}
+			else
+				// Associa l'utente alla recensione
+				review.setUser(user);
+		}
+
+		reviewService.saveReview(review);
+		return "redirect:/book/" + bookId;
+	}
+	
+	@PostMapping("/book/{bookId}/review/{reviewId}/delete")
+	public String deleteReview(@PathVariable Long bookId, @PathVariable Long reviewId) {
+	    reviewService.deleteById(reviewId);
+	    return "redirect:/admin/book/" + bookId + "/update";
+	}
 }

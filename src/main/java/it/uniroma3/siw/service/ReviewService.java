@@ -28,4 +28,8 @@ public class ReviewService {
 		repository.deleteById(id);
 	}
 
+	public boolean existsByBookIdAndUserId(Long bookId, Long userId) {
+		return repository.existsByBookIdAndUserId(bookId, userId);
+	}
+
 }

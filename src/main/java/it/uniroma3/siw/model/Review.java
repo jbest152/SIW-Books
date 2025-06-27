@@ -30,6 +30,10 @@ public class Review {
 	@ManyToOne
 	@JoinColumn(name = "book_id")
 	private Book book;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user; // o author, reviewer, come preferisci
 
 	public Long getId() {
 		return id;
@@ -88,7 +92,12 @@ public class Review {
 	public void setBook(Book book) {
 		this.book = book;
 	}
-	
-	
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public User getUser() {
+		return this.user;
+	}
 }

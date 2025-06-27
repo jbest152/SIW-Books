@@ -23,7 +23,7 @@
       <textarea th:field="*{text}" required></textarea>
       <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
 
-      <button type="submit">Conferma</button>
+      <button type="submit" class="btn-submit">Conferma</button>
     </form>
   </section>
 </body>
