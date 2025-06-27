@@ -57,19 +57,6 @@ public class AuthenticationController {
 	public String login() {
 		return "form/auth/formLogin";
 	}
-
-	@GetMapping("/") 
-    public String home(Model model) {
-        return "homepage";
-    }
-	
-	@GetMapping("/home")
-    public String home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-		if (userDetails == null)
-			return "redirect:/";
-        model.addAttribute("username", userDetails.getUsername());
-        return "homepage";
-    }
 		
     @GetMapping("/success")
     public String defaultAfterLogin(Model model) {

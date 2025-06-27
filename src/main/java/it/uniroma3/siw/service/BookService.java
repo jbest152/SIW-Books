@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,17 @@ public class BookService {
 	public void deleteById(Long id) {
 		repository.deleteById(id);
 	}
+
+	public long countBooks() {
+		return repository.count();
+	}
+
+	 public List<Book> findLatestBooks(int limit) {
+		 return repository.findLatestBooks()
+                         .stream()
+                         .limit(limit)
+                         .toList();
+	 }
 
 	/*
 	public void addAuthorToBook(Long authorId, Long bookId) {

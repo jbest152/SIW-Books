@@ -28,6 +28,10 @@ public class AuthorService {
 		repository.deleteById(id);
 	}
 
+	public long countAuthors() {
+		return repository.count();
+	}
+
 	/*
 	public void addBookToAuthor(Long bookId, Long authorId) {
 		repository.addBookToAuthor(bookId, authorId);

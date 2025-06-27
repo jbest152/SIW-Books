@@ -10,11 +10,37 @@
 
 <body>
   <section layout:fragment="content">
-    <h1>Benvenuto <span th:text="${username}"></span>!</h1>
+    <h1>Benvenuto <span th:text="${username}">Utente</span>!</h1>
 
-    <div sec:authorize="hasAuthority('ADMIN')">
-      <a href="admin/bookIndex">Operazioni sui libri</a><br>
-      <a href="admin/authorIndex">Operazioni sugli autori</a>
+    <!-- Statistiche generali -->
+    <div class="stats">
+      <p>📚 Libri totali: <span th:text="${bookCount}">0</span></p>
+      <p>👤 Autori registrati: <span th:text="${authorCount}">0</span></p>
+    </div>
+
+    <!-- Campo di ricerca -->
+    <div class="search-bar">
+      <form th:action="@{/book/search}" method="get">
+        <input type="text" name="query" placeholder="Cerca un libro...">
+        <button type="submit">Cerca</button>
+      </form>
+    </div>
+
+    <!-- Ultimi libri aggiunti -->
+    <div class="latest-books">
+      <h2>Ultimi libri aggiunti:</h2>
+      <ul>
+        <li th:each="book : ${latestBooks}">
+          <strong th:text="${book.title}">Titolo</strong> –
+        </li>
+      </ul>
+    </div>
+
+    <!-- Sezione visibile solo agli ADMIN -->
+    <div sec:authorize="hasAuthority('ADMIN')" class="admin-section">
+      <h2>Sezione Amministratore</h2>
+      <a th:href="@{/admin/bookIndex}">📘 Operazioni sui libri</a><br>
+      <a th:href="@{/admin/authorIndex}">✍️ Operazioni sugli autori</a>
     </div>
   </section>
 </body>
