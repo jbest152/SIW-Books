@@ -1,0 +1,114 @@
+/* homepage.css */
+
+/* Sezione principale */
+section {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Titolo principale */
+h1 {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+/* Titoli secondari */
+h2 {
+  font-size: 1.6rem;
+  color: #34495e;
+  margin-top: 2.5rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+/* Box bianchi con ombra leggera */
+.stats, .search-bar, .latest-books, .admin-section {
+  background-color: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+}
+
+/* Paragrafi statistiche */
+.stats p {
+  margin: 0.6rem 0;
+  font-size: 1.15rem;
+  color: #34495e;
+}
+
+/* Barra di ricerca */
+.search-bar form {
+  display: flex;
+  gap: 0.7rem;
+}
+
+/* Campo testo ricerca */
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar input[type="text"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Bottone ricerca */
+.search-bar button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.3rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #2980b9;
+}
+
+/* Lista libri recenti */
+.latest-books ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.latest-books ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.latest-books ul li:last-child {
+  border-bottom: none;
+}
+
+/* Link sezione admin */
+.admin-section a {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+  color: #c0392b;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.admin-section a:hover {
+  color: #992d22;
+  text-decoration: underline;
+}

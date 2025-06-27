@@ -62,4 +62,9 @@ public class AuthenticationController {
     public String defaultAfterLogin(Model model) {
         return "redirect:/home";
     }
+    
+    @GetMapping("/test") 
+	public String test() {
+		return "form/auth/testLogin";
+	}
 }

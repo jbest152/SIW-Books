@@ -1,7 +1,5 @@
-<nav th:fragment="navbar" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <link rel="stylesheet" href="/css/navbar.css" />
-
-  <ul>
+<nav th:fragment="navbar" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="navbar">
+  <ul class="navbar-menu">
     <li><a th:href="@{/home}">Home</a></li>
     <li><a th:href="@{/book}">Libri</a></li>
     <li><a th:href="@{/author}">Autori</a></li>
@@ -9,13 +7,12 @@
 
     <li sec:authorize="isAnonymous()">
       <a th:href="@{/login}">Login</a>
+	  <a th:href="@{/test}">Test</a>
     </li>
 
     <li sec:authorize="isAuthenticated()">
       <form th:action="@{/logout}" method="post" class="logout-form">
-        <button type="submit" class="logout-button">
-          Logout
-        </button>
+        <button type="submit" class="logout-button">Logout</button>
       </form>
     </li>
   </ul>

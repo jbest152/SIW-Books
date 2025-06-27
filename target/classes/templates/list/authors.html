@@ -4,6 +4,7 @@
       layout:decorate="~{fragments/layout}">
 <head>
   <title>Autori</title>
+  <link rel="stylesheet" href="/css/card-grid.css" />
 </head>
 
 <body>
@@ -12,19 +13,20 @@
 
     <div th:if="${authors.isEmpty()}">Non ci sono autori nel sistema</div>
 
-    <ul>
-      <li th:each="author : ${authors}">
-        <a th:href="@{'/author/' + ${author.id}}"
-           th:text="${author.name} + ' ' + ${author.surname}"></a>
-        
-        <div th:if="${isAdmin}">
-          <a th:href="@{'/admin/author/' + ${author.id} + '/update'}">modifica</a>
-          <form th:action="@{'/admin/author/' + ${author.id} + '/delete'}" method="post" style="display:inline;">
+    <div class="card-grid">
+      <div class="card" th:each="author : ${authors}">
+        <a th:href="@{'/author/' + ${author.id}}">
+          <h2 th:text="${author.name + ' ' + author.surname}">Nome Cognome</h2>
+        </a>
+
+        <div class="admin-actions" th:if="${isAdmin}">
+          <a th:href="@{'/admin/author/' + ${author.id} + '/update'}">Modifica</a>
+          <form th:action="@{'/admin/author/' + ${author.id} + '/delete'}" method="post">
             <button type="submit">Elimina</button>
           </form>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </section>
 </body>
 </html>

@@ -1,43 +1,82 @@
 .common-form {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #f9f9f9;
-  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+}
+
+.common-form h1 {
+  text-align: center;
+  color: #1abc9c;
+  margin-bottom: 2rem;
 }
 
 .common-form label {
   display: block;
-  margin-top: 15px;
-  font-weight: bold;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #34495e;
 }
 
-.common-form input,
-.common-form textarea,
-.common-form select {
+.common-form input {
   width: 100%;
-  padding: 8px 10px;
-  margin-top: 5px;
-  border: 1px solid #bbb;
-  border-radius: 4px;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
-  font-size: 1em;
+  font-family: inherit;
+}
+
+.common-form input:focus {
+  outline: none;
+  border-color: #1abc9c;
+  box-shadow: 0 0 8px rgba(26, 188, 156, 0.4);
 }
 
 .common-form button {
-  margin-top: 20px;
-  background-color: #007bff;
+  width: 100%;
+  background-color: #1abc9c;
+  color: #fff;
   border: none;
-  padding: 10px 20px;
-  color: white;
-  font-size: 1.1em;
-  border-radius: 6px;
+  padding: 14px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
 }
 
 .common-form button:hover {
-  background-color: #0056b3;
+  background-color: #159c87;
+  transform: scale(1.05);
+}
+
+.common-form button:active {
+  transform: scale(0.98);
+}
+
+.register-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-link {
+  color: #1abc9c;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: #159c87;
+  text-decoration: underline;
 }

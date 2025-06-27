@@ -7,8 +7,8 @@
 </head>
 <body>
   <section layout:fragment="content">
-    <h1>Aggiungi un autore</h1>
     <form th:action="@{/author}" method="POST" th:object="${author}" class="common-form">
+    <h1>Aggiungi un autore</h1>
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
       <input type="hidden" th:field="*{id}" />
       <label>Nome:</label>

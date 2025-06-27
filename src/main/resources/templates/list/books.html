@@ -4,6 +4,7 @@
       layout:decorate="~{fragments/layout}">
 <head>
   <title>Libri</title>
+  <link rel="stylesheet" href="/css/card-grid.css" />
 </head>
 
 <body>
@@ -12,19 +13,22 @@
 
     <div th:if="${books.isEmpty()}">Non ci sono libri nel sistema</div>
 
-    <ul>
-      <li th:each="book : ${books}">
-        <a th:href="@{'/book/' + ${book.id}}"
-           th:text="${book.title} + ' (' + ${book.year} + ')'"></a>
-        
-        <div th:if="${isAdmin}">
-          <a th:href="@{'/admin/book/' + ${book.id} + '/update'}">modifica</a>
-          <form th:action="@{'/admin/book/' + ${book.id} + '/delete'}" method="post" style="display:inline;">
+    <div class="card-grid">
+      <div class="card" th:each="book : ${books}">
+        <a th:href="@{'/book/' + ${book.id}}">
+          <img th:src="@{/images/book-default.jpg}" alt="Copertina libro" />
+          <h2 th:text="${book.title}">Titolo</h2>
+          <p th:text="${book.year}">Anno</p>
+        </a>
+
+        <div class="admin-actions" th:if="${isAdmin}">
+          <a th:href="@{'/admin/book/' + ${book.id} + '/update'}">Modifica</a>
+          <form th:action="@{'/admin/book/' + ${book.id} + '/delete'}" method="post">
             <button type="submit">Elimina</button>
           </form>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </section>
 </body>
 </html>
