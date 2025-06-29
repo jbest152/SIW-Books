@@ -6,6 +6,4 @@ import it.uniroma3.siw.model.Author;
 
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 
-	//void addBookToAuthor(Long bookId, Long authorId);
-
 }
