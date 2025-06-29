@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Review {
+public class Review implements BaseEntity{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)

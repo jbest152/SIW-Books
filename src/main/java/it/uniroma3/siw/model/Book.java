@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Book {
+public class Book implements BaseEntity{
 	 @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
      private Long id;
