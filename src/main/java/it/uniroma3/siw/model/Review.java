@@ -33,7 +33,7 @@ public class Review {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user; // o author, reviewer, come preferisci
+	private User user;
 
 	public Long getId() {
 		return id;

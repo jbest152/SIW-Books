@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{fragments/layout}">
+
+<head>
+  <title layout:title-pattern="$CONTENT_TITLE - SIW Books">Profilo Utente</title>
+  <link rel="stylesheet" href="/css/profile.css" />
+</head>
+
+<body>
+
+	<section layout:fragment="content" class="profile-content">
+    <h1>Profilo di <span th:text="${user.name} + ' ' + ${user.surname}"></span></h1>
+
+    <div>
+      <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+      <p><strong>Data di nascita:</strong> <span th:text="${user.birth}"></span></p>
+    </div>
+
+    <h2>Recensioni scritte</h2>
+    <div th:if="${#lists.isEmpty(user.reviews)}">
+      <p>Non hai ancora scritto recensioni.</p>
+    </div>
+    <div th:if="${!#lists.isEmpty(user.reviews)}">
+		
+		<ul>
+		  <li th:each="review : ${user.reviews}">
+		    <h3 th:text="${review.title}"></h3>
+		    <p><strong>Valutazione:</strong> <span th:text="${review.rating}"></span>/5</p>
+		    <p th:text="${review.text}"></p>
+		    <p>
+		      <em>Libro recensito:</em> 
+		      <a th:href="@{/book/{id}(id=${review.book.id})}" 
+		         th:text="${review.book.title}" class="book-link"></a>
+		    </p>
+		    
+		    <a th:href="@{/review/{id}/edit(id=${review.id})}" class="btn-edit">Modifica</a>
+		    
+		    <hr/>
+		  </li>
+		</ul>
+
+	  
+    </div>
+  </section>
+
+</body>
+</html>

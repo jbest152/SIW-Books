@@ -1,11 +1,15 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,6 +33,28 @@ public class User {
 
     @NotNull
     private LocalDate birth;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
+
+    // getter e setter per reviews
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+        review.setUser(this);
+    }
+
+    public void removeReview(Review review) {
+        reviews.remove(review);
+        review.setUser(null);
+    }
 
     public LocalDate getBirth() {
         return birth;

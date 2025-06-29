@@ -56,19 +56,9 @@ public class ReviewController {
 		Book book = bookService.getBookById(bookId);
 		review.setBook(book);
 
-		// Qui devi ottenere il tuo User dal database usando username da userDetails
-		Credentials c = credentialsService.getCredentials(userDetails.getUsername());
-		if (c == null)
-			System.out.println("nullo");
-		else {
-			User user = c.getUser();
-			if (user == null) {
-				System.out.println("ciao");
-			}
-			else
-				// Associa l'utente alla recensione
-				review.setUser(user);
-		}
+		User user = credentialsService.getCredentials(userDetails.getUsername()).getUser();
+		review.setUser(user);
+		user.addReview(review);
 
 		reviewService.saveReview(review);
 		return "redirect:/book/" + bookId;
@@ -78,5 +68,11 @@ public class ReviewController {
 	public String deleteReview(@PathVariable Long bookId, @PathVariable Long reviewId) {
 	    reviewService.deleteById(reviewId);
 	    return "redirect:/admin/book/" + bookId + "/update";
+	}
+	
+	@GetMapping("/review/{id}/edit")
+	public String editReview(@PathVariable Long id, Model model) {
+		model.addAttribute("review", reviewService.getReviewById(id));
+		return "form/update/formUpdateReview";
 	}
 }
