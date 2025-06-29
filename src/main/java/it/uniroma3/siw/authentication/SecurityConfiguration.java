@@ -1,4 +1,4 @@
-package it.uniroma3.siw.configuration;
+package it.uniroma3.siw.authentication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
