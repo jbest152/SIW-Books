@@ -7,9 +7,12 @@
 
     <li sec:authorize="isAnonymous()">
       <a th:href="@{/login}">Login</a>
-	  <a th:href="@{/test}">Test</a>
+      <a th:href="@{/test}">Test</a>
     </li>
 
+    <li sec:authorize="isAuthenticated()">
+      <a th:href="@{/profile}">Profile</a>  <!-- Aggiunto qui -->
+    </li>
     <li sec:authorize="isAuthenticated()">
       <form th:action="@{/logout}" method="post" class="logout-form">
         <button type="submit" class="logout-button">Logout</button>

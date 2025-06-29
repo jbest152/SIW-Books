@@ -1,0 +1,94 @@
+.profile-content {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+}
+
+.profile-content h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  border-bottom: 2px solid #1abc9c;
+  padding-bottom: 0.5rem;
+}
+
+.profile-content h2 {
+  margin-top: 3rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.6rem;
+  color: #16a085;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.3rem;
+}
+
+.profile-content > div:first-of-type {
+  margin-bottom: 3rem;
+}
+
+.profile-content p {
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.profile-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.profile-content li {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-content h3 {
+  margin-bottom: 0.3rem;
+  color: #34495e;
+}
+
+.profile-content p em {
+  font-style: normal;
+  font-weight: 600;
+  color: #7f8c8d;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin-top: 1rem;
+}
+
+/* Stile bottone Modifica */
+.btn-edit {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background-color: #1abc9c;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #16a085;
+}
+
+/* Stile link libri, coerente ma distinto dal bottone */
+.profile-content a.book-link {
+  color: #1abc9c;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.profile-content a.book-link:hover {
+  color: #16a085;
+  text-decoration: underline;
+}
