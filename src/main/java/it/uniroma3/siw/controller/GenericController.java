@@ -59,13 +59,21 @@ public abstract class GenericController<T extends BaseEntity> {
 		service.save(item);
 		return "redirect:/" + className + "/" + item.getId();
 	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("/edit")
+	public String updateItems(Model model) {
+		model.addAttribute("isAdmin", true);
+		model.addAttribute(className + "s", service.findAll());
+		return className + "/list";
+	}
 
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/{id}/edit")
 	public String showEditForm(@PathVariable Long id, Model model) {
 		T item = service.findById(id);
 
-		model.addAttribute("item", item);
+		model.addAttribute(className, item);
 		return className + "/edit";
 	}
 
@@ -82,7 +90,7 @@ public abstract class GenericController<T extends BaseEntity> {
 	@PostMapping("/{id}/delete")
 	public String delete(@PathVariable Long id) {
 		service.deleteById(id);
-		return "redirect:/" + className;
+		return "redirect:/" + className + "/edit";
 	}
 
 	private T getEntityInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {

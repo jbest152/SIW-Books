@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+  <title th:text="${book != null} ? ${book.title} : 'Libro'">Libro</title>
+  <link rel="stylesheet" href="/css/book.css" />
+</head>
+
+<body>
+	<section layout:fragment="content">
+	  <div class="book-container" th:if="${book}">
+	    <h1 class="book-title" th:text="${book.title}">Titolo libro</h1>
+	    
+	    <div class="book-year" th:text="'Anno: (' + ${book.year} + ')'">Anno: (2000)</div>
+	    
+	    <div class="book-image-wrapper">
+	      <img th:src="${book.urlImage}" alt="Copertina libro" />
+	    </div>
+
+	    <div class="section-group">
+	      <h2>Autori</h2>
+	      <div th:if="${book.authors.isEmpty()}" class="empty-info">
+	        Il libro non ha autori
+	      </div>
+	      <ul class="author-list" th:if="${!book.authors.isEmpty()}">
+	        <li th:each="author : ${book.authors}">
+	          <a th:href="@{'/author/' + ${author.id}}"
+	             th:text="${author.name} + ' ' + ${author.surname}"></a>
+	        </li>
+	      </ul>
+	    </div>
+
+	    <div class="section-group">
+	      <h2>Recensioni</h2>
+	      <div th:if="${book.reviews.isEmpty()}" class="empty-info">
+	        Il libro non ha recensioni
+	      </div>
+		  <ul class="review-list" th:if="${!book.reviews.isEmpty()}">
+		    <li th:each="review : ${book.reviews}">
+		      <a th:href="@{'/review/' + ${review.id}}" th:text="${review.title}"></a>
+		      <div class="review-meta">
+		        <span th:text="${'di ' + review.user.name + ' ' + review.user.surname}"></span> |
+		        <span th:text="${'Valutazione: ' + review.rating + '/5'}"></span>
+		      </div>
+		    </li>
+		  </ul>
+	    </div>
+
+	    <a sec:authorize="isAuthenticated()"
+	       th:if="${!userHasReviewed}"
+	       th:href="@{'/book/' + ${book.id} + '/review'}"
+	       class="review-button">
+	      Aggiungi una recensione
+	    </a>
+
+	    <p th:if="${userHasReviewed}" class="empty-info">
+	      Hai già scritto una recensione per questo libro.
+	    </p>
+	  </div>
+
+	  <div th:unless="${book}" class="not-found">
+	    Libro non trovato
+	  </div>
+	</section>
+
+</body>
+</html>

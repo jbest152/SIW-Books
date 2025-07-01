@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Author;
@@ -25,100 +26,48 @@ import jakarta.validation.Valid;
 
 
 @Controller
-public class BookController {
-	@Autowired
-	private BookService bookService;
+@RequestMapping("/book")
+public class BookController extends GenericController<Book>{
+
 	@Autowired
 	private AuthorService authorService;
+	
 	@Autowired
-	private ReviewService reviewRepository;
+	private ReviewService reviewService;
+	
 	@Autowired
 	private CredentialsService credentialsService;
 
-
-
-	@GetMapping("/book/{id}")
-	public String getBook(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id, Model model) {
-		model.addAttribute("book", this.bookService.getBookById(id));
-		if (userDetails!=null) {
-			Credentials c = credentialsService.getCredentials(userDetails.getUsername());
-			if (c != null) {
-				User user = c.getUser();
-
-				boolean userHasReviewed = reviewRepository.existsByBookIdAndUserId(id, user.getId());
-				model.addAttribute("userHasReviewed", userHasReviewed);
-			}
-		}
-		return "detail/book.html";
+	public BookController() {
+		super(Book.class);
+	}
+	
+	@Override
+	@GetMapping("/{id}/edit")
+	public String showEditForm(@PathVariable Long id, Model model) {
+		model.addAttribute("authors", authorService.findAll());
+		return super.showEditForm(id, model);
 	}
 
-	@GetMapping("/book")
-	public String showAllBooks(Model model) {
-		model.addAttribute("books", this.bookService.getAllBooks());
-		return "list/books.html";
-	}
-
-	@GetMapping("admin/formNewBook")
-	public String formNewBook(Model model) {
-		model.addAttribute("book", new Book());
-		return "form/create/formNewBook.html";
-	}
-
-	@PostMapping("/book")
-	public String newBook(@Valid @ModelAttribute("book") Book book,BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {
-			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-			return "form/create/formNewBook.html";
-		} 
-		else {
-			this.bookService.saveBook(book);
-			return "redirect:/book/"+book.getId();
-		}
-	}
-
-
-	@GetMapping("admin/updateBooks")
-	public String updateBooks(Model model) {
-		model.addAttribute("isAdmin", true);
-		model.addAttribute("books", this.bookService.getAllBooks());
-		return "list/books.html";
-	}
-
-	@GetMapping("admin/book/{id}/update")
-	public String updateBook(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("book", this.bookService.getBookById(id));    
-		model.addAttribute("authors", this.authorService.getAllAuthors());
-		return "form/update/formUpdateBook.html";
-	}
-
-	@PostMapping("admin/book/{id}/delete")
-	public String deleteBook(@PathVariable Long id) {
-		bookService.deleteById(id);
-		return "redirect:/admin/updateBooks";
-	}
-
-	@PostMapping("/book/{id}/addAuthor")
+	@PostMapping("/{id}/addAuthor")
 	public String addAuthorToBook(@PathVariable Long id, @RequestParam Long authorId) {
-		Book book = bookService.getBookById(id);
+		Book book = super.service.findById(id);
 		Author author = authorService.getAuthorById(authorId);
 
 		author.addBook(book);
 		authorService.saveAuthor(author);
 
-		return "redirect:/admin/book/" + id + "/update";
+		return "redirect:/book/" + id + "/edit";
 	}
 
-
-	@PostMapping("/book/{id}/removeAuthor")
+	@PostMapping("/{id}/removeAuthor")
 	public String removeAuthorFromBook(@PathVariable Long id, @RequestParam Long authorId) {
-		Book book = bookService.getBookById(id);
+		Book book = super.service.findById(id);
 		Author author = authorService.getAuthorById(authorId);
 
 		author.removeBook(book);
 		authorService.saveAuthor(author);
 
-		return "redirect:/admin/book/" + id + "/update";
+		return "redirect:/book/" + id + "/edit";
 	}
-
-
 }

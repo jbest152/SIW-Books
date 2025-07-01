@@ -48,6 +48,7 @@ public class AuthorController {
 		return "list/authors.html";
 	}
 
+	/*
 	@GetMapping("admin/author/{id}/update")
 	public String updateBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("author", this.authorService.getAuthorById(id));    
@@ -97,4 +98,5 @@ public class AuthorController {
 
 		return "redirect:/admin/author/"+ id + "/update";
 	}
+	*/
 }

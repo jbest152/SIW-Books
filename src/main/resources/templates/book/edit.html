@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-form}">
+<head>
+  <title>Modifica libro</title>
+  <link rel="stylesheet" href="/css/form-manage.css" />
+
+</head>
+
+<body>
+	<section layout:fragment="content" class="common-form update-form">
+	  <h1>Modifica libro</h1>
+
+	  <!-- FORM principale libro -->
+	  <form th:action="@{/book}" method="POST" th:object="${book}">
+	    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-message"></p>
+
+	    <input type="hidden" th:field="*{id}" />
+
+	    <label for="title">Titolo:</label>
+	    <input required type="text" id="title" th:field="*{title}" />
+	    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></span>
+
+	    <label for="year">Anno:</label>
+	    <input required type="number" id="year" th:field="*{year}" />
+	    <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="error-message"></span>
+
+	    <label for="urlImage">URL immagine:</label>
+	    <input type="url" id="urlImage" th:field="*{urlImage}" />
+
+	    <button type="submit" class="btn-submit">Conferma</button>
+	  </form>
+
+	  <hr style="margin: 2rem 0; border-color:#ddd;" />
+
+	  <h2>Autori associati</h2>
+	  <ul class="authors-list">
+	    <li th:each="author : ${book.authors}">
+	      <span th:text="${author.name + ' ' + author.surname}"></span>
+	      <form th:action="@{/book/{id}/removeAuthor(id=${book.id})}" method="post">
+	        <input type="hidden" name="authorId" th:value="${author.id}" />
+	        <button type="submit" class="btn-remove">Rimuovi</button>
+	      </form>
+	    </li>
+	  </ul>
+
+	  <hr style="margin: 2rem 0; border-color:#ddd;" />
+
+	  <h2>Autori disponibili</h2>
+	  <ul class="authors-list">
+	    <li th:each="author : ${authors}" th:if="${!book.authors.contains(author)}">
+	      <span th:text="${author.name + ' ' + author.surname}"></span>
+	      <form th:action="@{/book/{id}/addAuthor(id=${book.id})}" method="post">
+	        <input type="hidden" name="authorId" th:value="${author.id}" />
+	        <button type="submit" class="btn-add">Aggiungi</button>
+	      </form>
+	    </li>
+	  </ul>
+
+	  <hr style="margin: 2rem 0; border-color:#ddd;" />
+
+	  <h2>Recensioni</h2>
+	  <ul class="reviews-list">
+	    <li th:each="review : ${book.reviews}">
+	      <div>
+	        <strong th:text="${review.title}">Titolo recensione</strong>
+	        <div class="review-author" th:text="${'di ' + review.user.name + ' ' + review.user.surname}"></div>
+	      </div>
+	      <form th:action="@{/book/{bookId}/review/{reviewId}/delete(bookId=${book.id},reviewId=${review.id})}" method="post">
+	        <button type="submit" class="btn-remove-review">Elimina</button>
+	      </form>
+	    </li>
+	  </ul>
+
+	</section>
+
+</body>
+</html>

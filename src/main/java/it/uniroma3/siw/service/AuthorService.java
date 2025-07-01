@@ -7,7 +7,7 @@ import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.repository.AuthorRepository;
 
 @Service
-public class AuthorService {
+public class AuthorService extends GenericService<Author, Long>{
 
 	@Autowired
 	private AuthorRepository repository;

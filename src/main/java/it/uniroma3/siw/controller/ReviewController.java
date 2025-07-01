@@ -36,6 +36,7 @@ public class ReviewController {
 	@Autowired
 	private CredentialsService credentialsService;
 
+	/*
 	@GetMapping("/book/{id}/review")
 	public String showReviewForm(@PathVariable("id") Long id, Model model) {
 		Book book = bookService.getBookById(id);
@@ -93,4 +94,5 @@ public class ReviewController {
 	    reviewService.saveReview(review);
 	    return "redirect:/profile";
 	}
+	*/
 }
