@@ -17,6 +17,7 @@
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-message"></p>
 
       <input type="hidden" th:field="*{id}" />
+	  <input type="hidden" th:field="*{books}" />
 
       <label for="name">Nome:</label>
       <input required type="text" id="name" th:field="*{name}" />

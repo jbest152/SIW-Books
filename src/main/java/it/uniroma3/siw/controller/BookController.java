@@ -120,13 +120,12 @@ public class BookController extends GenericController<Book>{
 
 	@GetMapping("/search")
 	public String searchBooks(@RequestParam("query") String query, @AuthenticationPrincipal UserDetails userDetails, Model model) {
-		System.out.println("query");
 		addModelUser(model, userDetails);
 		BookService bookService = (BookService) super.service;
 		List<Book> results = bookService.searchByTitle(query);
 
 		model.addAttribute("books", results);
-
+		model.addAttribute("isAdmin", false);
 		return "book/list";
 	}
 }

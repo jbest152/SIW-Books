@@ -124,7 +124,7 @@ public class AuthorController extends GenericController<Author> {
         List<Author> results = authorService.searchByNameOrSurname(query);
 
         model.addAttribute("authors", results);
-
+        model.addAttribute("isAdmin", false);
         return "author/list";
     }
 }

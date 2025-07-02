@@ -29,6 +29,7 @@
     <div class="card-grid">
       <div class="card" th:each="author : ${authors}">
         <a th:href="@{'/author/' + ${author.id}}">
+			<img th:src="@{'/image/author/' + ${author.id}}" alt="Foto autore" />
           <h2 th:text="${author.name + ' ' + author.surname}">Nome Cognome</h2>
         </a>
 
