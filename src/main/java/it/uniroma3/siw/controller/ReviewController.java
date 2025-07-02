@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,6 +40,7 @@ public class ReviewController extends GenericController<Review>{
 	@Autowired
 	private CredentialsService credentialsService;
 
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/book/{id}/new")
 	public String showReviewForm(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
 		super.addModelUser(model, userDetails);
@@ -51,6 +53,7 @@ public class ReviewController extends GenericController<Review>{
 		return "review/create";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/create")
 	public String create(@Valid @ModelAttribute("item") Review review, @AuthenticationPrincipal UserDetails userDetails,BindingResult result) {
 		User user = credentialsService.getCredentials(userDetails.getUsername()).getUser();
@@ -62,6 +65,8 @@ public class ReviewController extends GenericController<Review>{
 		return "redirect:/review/" + review.getId();
 	}
 	
+	@Override
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/{id}/delete")
 	public String delete(@PathVariable Long id) {
 		Book book = service.findById(id).getBook();

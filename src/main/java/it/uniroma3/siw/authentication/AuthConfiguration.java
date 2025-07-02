@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {
+public class AuthConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
@@ -51,6 +51,7 @@ public class SecurityConfiguration {
             	.requestMatchers(HttpMethod.POST, "/loginAsUser", "/loginAsAdmin", "/test-login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/test", "/", "/home", "/register", "/login", "/css/**", "/images/**", "/favicon.ico", "/js/**", "/webjars/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/book/**", "/author/**", "review/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/book/**", "/author/**").hasAuthority(ADMIN_ROLE)
                 .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
                 .requestMatchers("/admin/**").hasAuthority(ADMIN_ROLE)
                 .anyRequest().authenticated()

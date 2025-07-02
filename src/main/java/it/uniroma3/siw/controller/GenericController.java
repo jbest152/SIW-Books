@@ -62,6 +62,7 @@ public abstract class GenericController<T extends BaseEntity> {
 		return className + "/create";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping
 	public String create(@Valid @ModelAttribute("item") T item, BindingResult result) {
 		if (result.hasErrors()) {
@@ -80,6 +81,7 @@ public abstract class GenericController<T extends BaseEntity> {
 		return className + "/list";
 	}
 
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/{id}/edit")
 	public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
 		System.out.println("ciao");

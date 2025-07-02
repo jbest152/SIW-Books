@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
 
 @Controller
-public class AuthenticationController {
+public class AuthController {
 
 	@Autowired
 	private UserService userService;

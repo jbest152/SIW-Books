@@ -39,7 +39,7 @@
     </div>
 
     <!-- Sezione amministratore -->
-    <div th:if="${isAdmin}" class="admin-section">
+    <div th:if="${isAdmin == false}" class="admin-section">
       <h2>Sezione Amministratore</h2>
       <a th:href="@{/admin/bookIndex}">📘 Operazioni sui libri</a>
       <a th:href="@{/admin/authorIndex}">✍️ Operazioni sugli autori</a>

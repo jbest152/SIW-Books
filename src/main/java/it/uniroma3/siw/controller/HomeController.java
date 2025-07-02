@@ -58,4 +58,10 @@ public class HomeController {
     public String home(Model model) {
         return "redirect:/";
     }
+	
+	@GetMapping()
+	public String profile(@AuthenticationPrincipal UserDetails user, Model model) {
+		model.addAttribute("user", credentialsService.getCredentials(user.getUsername()).getUser());
+		return "profile";
+	}
 }

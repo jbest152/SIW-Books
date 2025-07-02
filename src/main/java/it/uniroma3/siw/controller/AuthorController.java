@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -34,12 +35,12 @@ public class AuthorController extends GenericController<Author> {
 	}
 
 	@Override
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/{id}/edit")
 	public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
 		model.addAttribute("books", bookService.findAll());
 		return super.showEditForm(id, userDetails, model);
 	}
-
 
 	@PostMapping("/{id}/addBook")
 	public String addBookToAuthor(@PathVariable Long id, @RequestParam Long bookId) {
