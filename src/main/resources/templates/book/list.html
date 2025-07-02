@@ -11,7 +11,20 @@
   <section layout:fragment="content">
     <h1>Libri</h1>
 
-    <div th:if="${books.isEmpty()}">Non ci sono libri nel sistema</div>
+    <!-- Barra di ricerca -->
+    <div class="search-bar">
+      <form th:action="@{/book/search}" method="get">
+        <input type="text" name="query" placeholder="Cerca un libro..." 
+               th:value="${param.query}"  />
+        <button type="submit">
+          Cerca
+        </button>
+      </form>
+    </div>
+
+	<div th:if="${books.isEmpty()}" class="empty-message">
+	  Nessun libro trovato. Prova a modificare i criteri di ricerca o aggiungi un nuovo libro.
+	</div>
 
     <div class="card-grid">
       <div class="card" th:each="book : ${books}">
@@ -23,7 +36,7 @@
 
         <div class="admin-actions" th:if="${isAdmin}">
           <a th:href="@{'/book/' + ${book.id} + '/edit'}">Modifica</a>
-          <form th:action="@{'/book/' + ${book.id} + '/delete'}" method="post">
+          <form th:action="@{'/book/' + ${book.id} + '/delete'}" method="post" style="display:inline;">
             <button type="submit">Elimina</button>
           </form>
         </div>

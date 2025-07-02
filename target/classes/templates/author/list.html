@@ -11,8 +11,21 @@
   <section layout:fragment="content">
     <h1>Autori</h1>
 
-    <div th:if="${authors.isEmpty()}">Non ci sono autori nel sistema</div>
-
+	<!-- Barra di ricerca -->
+    <div class="search-bar">
+      <form th:action="@{/author/search}" method="get">
+        <input type="text" name="query" placeholder="Cerca un autore..." 
+               th:value="${param.query}" />
+        <button type="submit">
+          Cerca
+        </button>
+      </form>
+    </div>
+	
+	<div th:if="${authors.isEmpty()}" class="empty-message">
+	  Nessun autore trovato. Prova a modificare i criteri di ricerca o aggiungi un nuovo autore.
+	</div>
+	
     <div class="card-grid">
       <div class="card" th:each="author : ${authors}">
         <a th:href="@{'/author/' + ${author.id}}">

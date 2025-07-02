@@ -6,26 +6,26 @@
   <title>Login</title>
 </head>
 <body>
-  <section layout:fragment="content" class="common-form">
-    <h1>Login</h1>
+  <section layout:fragment="content">
+    <form th:action="@{/login}" method="POST" class="login-form">
+      <h1>Benvenuto!</h1>
 
-    <form th:action="@{/login}" method="POST">
-      <label for="username">Username:</label>
-      <input id="username" name="username" type="text" required autocomplete="username" />
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" required autocomplete="username" placeholder="Inserisci il tuo username" />
 
-      <label for="password">Password:</label>
-      <input id="password" name="password" type="password" required autocomplete="current-password" />
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="Inserisci la tua password" />
 
-      <div th:if="${param.error != null}" style="color: red; margin-bottom: 1rem;">
+      <div th:if="${param.error != null}" class="error-message">
         Username o password errati
       </div>
 
       <button type="submit" class="btn-submit">Accedi</button>
-    </form>
 
-	<div class="register-container">
-	  <a th:href="@{/register}" class="register-link">Registrati</a>
-	</div>
+      <div class="register-container">
+        Non hai un account? <a th:href="@{/register}" class="register-link">Registrati qui</a>
+      </div>
+    </form>
   </section>
 </body>
 </html>

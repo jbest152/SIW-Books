@@ -9,10 +9,10 @@
       <a th:href="@{/test}">Test</a>
     </li>
 
-    <li th:if="${user}">
+    <li th:if="${user} and ${user.name}">
       <a th:href="@{/profile}">Profile</a>
     </li>
-    <li th:if="${user}">
+    <li th:if="${user} and ${user.name}">
       <form th:action="@{/logout}" method="post" class="logout-form">
         <button type="submit" class="logout-button">Logout</button>
       </form>

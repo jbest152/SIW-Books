@@ -59,7 +59,7 @@ public class HomeController {
         return "redirect:/";
     }
 	
-	@GetMapping()
+	@GetMapping("/profile")
 	public String profile(@AuthenticationPrincipal UserDetails user, Model model) {
 		model.addAttribute("user", credentialsService.getCredentials(user.getUsername()).getUser());
 		return "profile";

@@ -8,24 +8,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Review implements BaseEntity{
-	
-	@Id
+public class Review implements BaseEntity {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	
-	@NotBlank
-	private String title;
-	
-	@NotNull
-	private int rating;
-	
-	@NotBlank
-	private String text;
+
+    @NotBlank(message = "{review.title.notblank}")
+    private String title;
+
+    @NotNull(message = "{review.rating.notnull}")
+    @Min(value = 1, message = "{review.rating.min}")
+    @Max(value = 5, message = "{review.rating.max}")
+    private int rating;
+
+    @NotBlank(message = "{review.text.notblank}")
+    private String text;
 	
 	@ManyToOne
 	@JoinColumn(name = "book_id")

@@ -20,14 +20,6 @@
       <p>👤 Autori registrati: <span th:text="${authorCount}">0</span></p>
     </div>
 
-    <!-- Barra di ricerca -->
-    <div class="search-bar">
-      <form th:action="@{/book/search}" method="get">
-        <input type="text" name="query" placeholder="Cerca un libro..." required />
-        <button type="submit">Cerca</button>
-      </form>
-    </div>
-
     <!-- Ultimi libri aggiunti -->
     <div class="latest-books">
       <h2>Ultimi libri aggiunti:</h2>

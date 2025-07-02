@@ -6,18 +6,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class Credentials implements BaseEntity{
+public class Credentials implements BaseEntity {
 
-	public static final String DEFAULT_ROLE = "DEFAULT";
-	public static final String ADMIN_ROLE = "ADMIN";
-	
-	@Id
+    public static final String DEFAULT_ROLE = "DEFAULT";
+    public static final String ADMIN_ROLE = "ADMIN";
+
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	private String username;
-	private String password;
+
+    @NotBlank(message = "{credentials.username.notblank}")
+    private String username;
+
+    @NotBlank(message = "{credentials.password.notblank}")
+    private String password;
+	
 	private String role;
 
 	@OneToOne(cascade = CascadeType.ALL)
