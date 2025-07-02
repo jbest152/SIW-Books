@@ -47,11 +47,11 @@
 		  </ul>
 	    </div>
 
-	    <div th:if="${!userHasReviewed}"
-	       th:href="@{'/book/' + ${book.id} + '/review'}"
-	       class="review-button">
-	      	Aggiungi una recensione
-	    </div>
+		<a th:if="${!userHasReviewed}"
+		   th:href="@{'/book/' + ${book.id} + '/review'}"
+		   class="review-button">
+		   Aggiungi una recensione
+		</a>
 
 	    <p th:if="${userHasReviewed}" class="empty-info">
 	      Hai già scritto una recensione per questo libro.

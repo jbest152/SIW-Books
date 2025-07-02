@@ -43,6 +43,20 @@ public class BookController extends GenericController<Book>{
 	}
 	
 	@Override
+	@GetMapping("/{id}")
+	public String view(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+		Book book = service.findById(id);
+		boolean bool = false;
+		if (userDetails != null) {
+			User user = credentialsService.getCredentials(userDetails.getUsername()).getUser();
+			bool = reviewService.existsByBookIdAndUserId(id, user.getId());
+		}
+		model.addAttribute("userHasReviewed", bool);
+		model.addAttribute("book", book);
+		return "book/view";
+	}
+	
+	@Override
 	@GetMapping("/{id}/edit")
 	public String showEditForm(@PathVariable Long id, Model model) {
 		model.addAttribute("authors", authorService.findAll());
