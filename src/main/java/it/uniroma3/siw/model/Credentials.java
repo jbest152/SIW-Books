@@ -24,7 +24,6 @@ public class Credentials implements BaseEntity {
     @NotBlank(message = "{credentials.password.notblank}")
     private String password;
 	
-    @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
 

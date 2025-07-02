@@ -9,7 +9,7 @@
   <section layout:fragment="content">
     <form th:action="@{/register}" method="POST" class="common-form">
       <h1>Registrazione nuovo utente</h1>
-
+	  
       <label for="name">Nome</label>
       <input id="name" type="text" placeholder="Inserisci il nome" th:field="${user.name}" />
       <div class="error-message" th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}"></div>
@@ -33,7 +33,7 @@
       <label for="password">Password</label>
       <input id="password" type="password" placeholder="Inserisci la password" th:field="${credentials.password}" />
       <div class="error-message" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"></div>
-
+	  
       <button type="submit" class="btn-submit">Registra</button>
 
       <p class="register-container">
