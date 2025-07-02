@@ -67,7 +67,7 @@
 	        <strong th:text="${review.title}">Titolo recensione</strong>
 	        <div class="review-author" th:text="${'di ' + review.user.name + ' ' + review.user.surname}"></div>
 	      </div>
-	      <form th:action="@{review/{reviewId}/delete(bookId=${item.id},reviewId=${review.id})}" method="post">
+	      <form th:action="@{'/review/' + ${review.id} + '/delete'}" method="post">
 	        <button type="submit" class="btn-remove-review">Elimina</button>
 	      </form>
 	    </li>

@@ -62,47 +62,12 @@ public class ReviewController extends GenericController<Review>{
 		review.setUser(user);
 		service.save(review);
 		return "redirect:/review/" + review.getId();
-	} 
-
-
-	/*
-	@GetMapping("/book/{id}/review")
-	public String showReviewForm(@PathVariable("id") Long id, Model model) {
-		Book book = bookService.getBookById(id);
-
-		Review review = new Review();
-
-		model.addAttribute("review", review);
-		model.addAttribute("book", book);
-		return "form/create/formNewReview.html";
 	}
-
-
-	@PostMapping("/book/{bookId}/review/{reviewId}/delete")
-	public String deleteReview(@PathVariable Long bookId, @PathVariable Long reviewId) {
-	    reviewService.deleteById(reviewId);
-	    return "redirect:/admin/book/" + bookId + "/update";
+	
+	@PostMapping("/{id}/delete")
+	public String delete(@PathVariable Long id) {
+		Book book = service.findById(id).getBook();
+		service.deleteById(id);
+		return "redirect:/book/" + book.getId() + "/edit";
 	}
-
-	@GetMapping("/review/{id}/edit")
-	public String editReview(@PathVariable Long id, Model model) {
-		model.addAttribute("review", reviewService.getReviewById(id));
-		return "form/update/formUpdateReview";
-	}
-
-	@PostMapping("/review")
-	public String updateReview(@Valid @ModelAttribute("review") Review review,
-						  BindingResult bindingResult,
-			              @RequestParam("bookId") Long bookId,
-			              @AuthenticationPrincipal UserDetails user,
-			              Model model) {
-	    if (bindingResult.hasErrors()) {
-	        return "form/update/formUpdateReview";
-	    }
-	    review.setUser(credentialsService.getCredentials(user.getUsername()).getUser());
-	    review.setBook(bookService.getBookById(bookId));
-	    reviewService.saveReview(review);
-	    return "redirect:/profile";
-	}
-	 */
 }
