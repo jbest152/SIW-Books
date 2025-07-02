@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -94,4 +96,14 @@ public class BookController extends GenericController<Book>{
 
 		return "redirect:/book/" + id + "/edit";
 	}
+	
+	@GetMapping("/search")
+    public String searchBooks(@RequestParam("query") String query, Model model) {
+		BookService bookService = (BookService) super.service;
+        List<Book> results = bookService.findByTitle(query);
+
+        model.addAttribute("books", results);
+
+        return "book/list";
+    }
 }

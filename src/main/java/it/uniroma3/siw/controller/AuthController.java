@@ -31,7 +31,7 @@ public class AuthController {
 	public String showRegisterForm (Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
-		return "form/auth/formRegister";
+		return "auth/register";
 	}
 
 	@PostMapping("/register")

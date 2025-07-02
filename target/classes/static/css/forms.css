@@ -7,6 +7,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2c3e50;
+  box-sizing: border-box;
 }
 
 .common-form h1 {
@@ -26,7 +27,7 @@
 .common-form input {
   width: 100%;
   padding: 12px 15px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   border: 1.8px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
@@ -41,94 +42,107 @@
   box-shadow: 0 0 8px rgba(26, 188, 156, 0.4);
 }
 
-/* Pulsante Conferma (btn-submit) */
+.login-form {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 40px 35px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+}
+
+.login-form:hover {
+  box-shadow: 0 12px 36px rgba(0,0,0,0.2);
+}
+
+.login-form h1 {
+  color: #16a085;
+  font-size: 2.8rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #34495e;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #16a085;
+  box-shadow: 0 0 10px rgba(22, 160, 133, 0.5);
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
 .btn-submit {
   width: 100%;
-  background-color: #1abc9c;
+  background-color: #16a085;
   color: #fff;
   border: none;
-  padding: 14px 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 10px;
+  padding: 18px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border-radius: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   user-select: none;
+  box-shadow: 0 4px 10px rgba(22, 160, 133, 0.4);
 }
 
 .btn-submit:hover {
-  background-color: #159c87;
+  background-color: #13876a;
   transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(19, 135, 106, 0.6);
 }
 
 .btn-submit:active {
   transform: scale(0.98);
-}
-
-/* Pulsante Aggiungi (btn-add) */
-.btn-add {
-  background-color: #27ae60; /* verde scuro */
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  user-select: none;
-}
-
-.btn-add:hover {
-  background-color: #1e8449;
-}
-
-/* Pulsante Rimuovi Autore (btn-remove) */
-.btn-remove {
-  background-color: #e74c3c; /* rosso */
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  user-select: none;
-}
-
-.btn-remove:hover {
-  background-color: #c0392b;
-}
-
-/* Pulsante Elimina Recensione (btn-remove-review) */
-.btn-remove-review {
-  background-color: #f39c12; /* arancione */
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  user-select: none;
-}
-
-.btn-remove-review:hover {
-  background-color: #d68910;
+  box-shadow: 0 3px 8px rgba(19, 135, 106, 0.5);
 }
 
 .register-container {
+  margin-top: 45px;
   text-align: center;
-  margin-top: 20px;
+  font-size: 1rem;
+  color: #34495e;
 }
 
 .register-link {
-  color: #1abc9c;
-  font-weight: 600;
+  color: #16a085;
+  font-weight: 700;
   text-decoration: none;
   transition: color 0.3s ease;
+  margin-left: 6px;
 }
 
 .register-link:hover {
-  color: #159c87;
+  color: #0f6f57;
   text-decoration: underline;
 }
