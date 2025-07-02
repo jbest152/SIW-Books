@@ -13,24 +13,25 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Author implements BaseEntity{
+public class Author implements BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	@NotBlank 
-	private String name;
+    @NotBlank(message = "{author.name.notblank}")
+    private String name;
 
-	@NotBlank
-	private String surname;
+    @NotBlank(message = "{author.surname.notblank}")
+    private String surname;
 
-	@NotNull
-	private LocalDate dateOfBirth;
-	
-	private LocalDate dateOfDeath;
+    @NotNull(message = "{author.dateOfBirth.notnull}")
+    private LocalDate dateOfBirth;
 
-	private String nationality;
+    private LocalDate dateOfDeath;
+
+    @NotBlank(message = "{author.nationality.notblank}")
+    private String nationality;
 	
 	private String urlImage;
 	

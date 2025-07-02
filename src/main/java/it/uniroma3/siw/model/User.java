@@ -16,22 +16,22 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
-public class User implements BaseEntity{
-	
-	@Id
+public class User implements BaseEntity {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-	@NotBlank
-	private String name;
-	
-	@NotBlank
-	private String surname;
-	
-	@NotBlank
-	private String email;
+    @NotBlank(message = "{user.name.notblank}")
+    private String name;
 
-    @NotNull
+    @NotBlank(message = "{user.surname.notblank}")
+    private String surname;
+
+    @NotBlank(message = "{user.email.notblank}")
+    private String email;
+
+    @NotNull(message = "{user.birth.notnull}")
     private LocalDate birth;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

@@ -16,27 +16,27 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Book implements BaseEntity{
-	 @Id
-     @GeneratedValue(strategy = GenerationType.AUTO)
-     private Long id;
+public class Book implements BaseEntity {
 
-     @NotBlank
-     private String title;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-     @NotNull
-     @Min(1891)
-     @Max(2025)
-     private Integer year;
-     
-     
-     private String urlImage;
-     
-     @ManyToMany(mappedBy = "books")
-     private List<Author> authors;
-     
-     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-     private List<Review> reviews;
+	@NotBlank(message = "{book.title.notblank}")
+	private String title;
+
+	@NotNull(message = "{book.year.notnull}")
+	@Min(value = 1891, message = "{book.year.min}")
+	@Max(value = 2025, message = "{book.year.max}")
+	private Integer year;
+
+	private String urlImage;
+
+	@ManyToMany(mappedBy = "books")
+	private List<Author> authors;
+
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+	private List<Review> reviews;
 
 	public Long getId() {
 		return id;
@@ -104,5 +104,5 @@ public class Book implements BaseEntity{
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
-	
+
 }
