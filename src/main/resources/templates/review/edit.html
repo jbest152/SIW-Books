@@ -12,13 +12,14 @@
     <h1>Modifica recensione</h1>
 
     <!-- FORM principale recensione -->
-    <form th:action="@{/review}" method="POST" th:object="${review}">
+    <form th:action="@{/review}" method="POST" th:object="${item}">
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-message"></p>
 
       <input type="hidden" th:field="*{id}" />
 	  
-	  <input type="hidden" name="bookId" th:value="${review.book.id}" />
-
+	  <input type="hidden" th:field="*{book}" />
+	  <input type="hidden" th:field="*{user}" />
+	  
       <label for="title">Titolo:</label>
       <input required type="text" id="title" th:field="*{title}" />
       <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></span>

@@ -83,7 +83,7 @@ public abstract class GenericController<T extends BaseEntity> {
 	public String showEditForm(@PathVariable Long id, Model model) {
 		T item = service.findById(id);
 
-		model.addAttribute(className, item);
+		model.addAttribute("item", item);
 		return className + "/edit";
 	}
 

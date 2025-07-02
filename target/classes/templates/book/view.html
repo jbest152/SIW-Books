@@ -48,7 +48,7 @@
 	    </div>
 
 		<a th:if="${!userHasReviewed}"
-		   th:href="@{'/book/' + ${book.id} + '/review'}"
+		   th:href="@{'/review/book/' + ${book.id} +'/new'}"
 		   class="review-button">
 		   Aggiungi una recensione
 		</a>

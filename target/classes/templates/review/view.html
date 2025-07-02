@@ -17,7 +17,7 @@
 
         <section class="review-rating">
           <strong>Valutazione:</strong> 
-          <span th:text="${review.rating}">5</span>/10
+          <span th:text="${review.rating}">5</span>/5
         </section>
 
         <section class="review-text">
@@ -30,7 +30,7 @@
           <a th:href="@{'/book/' + ${review.book.id}}" th:text="${review.book.title}">Titolo libro</a>
         </section>
 
-        <footer th:if="${review.user != null}" class="review-author">
+        <footer class="review-author">
           <strong>Recensito da:</strong> 
           <span th:text="${review.user.name + ' ' + review.user.surname}">Nome Utente</span>
         </footer>
