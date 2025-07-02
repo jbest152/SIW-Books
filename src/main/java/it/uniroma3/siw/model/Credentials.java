@@ -2,17 +2,17 @@ package it.uniroma3.siw.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Credentials implements BaseEntity {
-
-    public static final String DEFAULT_ROLE = "DEFAULT";
-    public static final String ADMIN_ROLE = "ADMIN";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +24,9 @@ public class Credentials implements BaseEntity {
     @NotBlank(message = "{credentials.password.notblank}")
     private String password;
 	
-	private String role;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
@@ -61,11 +63,11 @@ public class Credentials implements BaseEntity {
 		this.password = password;
 	}
 	
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 	
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 

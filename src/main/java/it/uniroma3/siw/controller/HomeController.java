@@ -8,12 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Role;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
-
-import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
 
 @Controller
 public class HomeController {
@@ -44,7 +43,7 @@ public class HomeController {
 		if (userDetails != null) {
 			Credentials c = credentialsService.getCredentials(userDetails.getUsername());
 			user = c.getUser();
-			isAdmin = c.getRole().equals(ADMIN_ROLE);
+			isAdmin = c.getRole().equals(Role.ADMIN);
 		}
 		model.addAttribute("isAdmin", isAdmin);
 		model.addAttribute("user", user);

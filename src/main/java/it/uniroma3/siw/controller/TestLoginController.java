@@ -9,11 +9,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.uniroma3.siw.model.Role;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
-import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
-import static it.uniroma3.siw.model.Credentials.DEFAULT_ROLE;
 
 @Controller
 public class TestLoginController {
@@ -33,13 +31,13 @@ public class TestLoginController {
 
 	@PostMapping("/loginAsUser")
 	public String loginAsUser(HttpServletRequest request) {
-	    doLogin("user", DEFAULT_ROLE, request);
+	    doLogin("user", Role.USER.name(), request);
 	    return "redirect:/home";
 	}
 
 	@PostMapping("/loginAsAdmin")
 	public String loginAsAdmin(HttpServletRequest request) {
-	    doLogin("admin", ADMIN_ROLE, request);
+	    doLogin("admin", Role.ADMIN.name(), request);
 	    return "redirect:/home";
 	}
 }

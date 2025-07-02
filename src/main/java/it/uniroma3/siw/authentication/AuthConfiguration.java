@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
+import it.uniroma3.siw.model.Role;
 
 import javax.sql.DataSource;
 
@@ -51,9 +51,9 @@ public class AuthConfiguration {
             	.requestMatchers(HttpMethod.POST, "/loginAsUser", "/loginAsAdmin", "/test-login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/test", "/", "/home", "/register", "/login", "/css/**", "/image/**","/images/**", "/favicon.ico", "/js/**", "/webjars/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/book/**", "/author/**", "review/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/book/**", "/author/**").hasAuthority(ADMIN_ROLE)
+                .requestMatchers(HttpMethod.POST, "/book/**", "/author/**").hasAuthority(Role.ADMIN.name())
                 .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
-                .requestMatchers("/admin/**").hasAuthority(ADMIN_ROLE)
+                .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login
