@@ -4,11 +4,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -33,7 +36,9 @@ public class Author implements BaseEntity {
     @NotBlank(message = "{author.nationality.notblank}")
     private String nationality;
 	
-	private String urlImage;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 	
 	 @ManyToMany
      private List<Book> books;
@@ -87,12 +92,12 @@ public class Author implements BaseEntity {
 		this.nationality = nationality;
 	}
 
-	public String getUrlImage() {
-		return urlImage;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 	
 	public List<Book> getBooks() {
@@ -105,7 +110,7 @@ public class Author implements BaseEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(books, dateOfBirth, dateOfDeath, id, name, nationality, surname, urlImage);
+		return Objects.hash(books, dateOfBirth, dateOfDeath, id, name, nationality, surname, image);
 	}
 
 	@Override
@@ -120,7 +125,7 @@ public class Author implements BaseEntity {
 		return Objects.equals(books, other.books) && Objects.equals(dateOfBirth, other.dateOfBirth)
 				&& Objects.equals(dateOfDeath, other.dateOfDeath) && Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name) && Objects.equals(nationality, other.nationality)
-				&& Objects.equals(surname, other.surname) && Objects.equals(urlImage, other.urlImage);
+				&& Objects.equals(surname, other.surname) && Objects.equals(image, other.image);
 	}
 
 	public void addBook(Book book) {
