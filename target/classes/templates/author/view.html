@@ -20,9 +20,9 @@
 	      </div>
 	    </div>
 
-	    <div class="author-photo">
-	      <img th:src="${author.urlImage}" alt="Foto autore" />
-	    </div>
+		<div class="author-photo">
+		  <img th:src="@{'/image/author/' + ${author.id}}" alt="Foto autore" />
+		</div>
 
 	    <div class="section-group">
 	      <h2>Libri scritti</h2>

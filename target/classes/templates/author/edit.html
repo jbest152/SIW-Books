@@ -12,7 +12,8 @@
     <h1>Modifica autore</h1>
 
     <!-- FORM principale autore -->
-    <form th:action="@{/author/}" method="POST" th:object="${item}">
+	<form th:action="@{'/author/' + *{id} + '/edit'}" th:object="${item}" method="post" enctype="multipart/form-data" class="common-form">
+	   
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-message"></p>
 
       <input type="hidden" th:field="*{id}" />
@@ -40,8 +41,8 @@
              th:value="${item.dateOfDeath != null} ? ${#temporals.format(item.dateOfDeath, 'yyyy-MM-dd')} : ''"
              name="dateOfDeath" />
 
-      <label for="urlImage">URL immagine:</label>
-      <input type="url" id="urlImage" th:field="*{urlImage}" />
+      <label for="image">Carica Immagine (opzionale)</label><br />
+	  <input type="file" name="imageFile" accept="image/*" />
 
       <button type="submit" class="btn-submit">Conferma</button>
     </form>

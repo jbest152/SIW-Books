@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.service.AuthorService;
+import it.uniroma3.siw.service.ImageService;
 
 @RestController
 @RequestMapping("/image")
@@ -18,7 +19,7 @@ public class ImageController {
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping("/{id}")
+    @GetMapping("author/{id}")
     public ResponseEntity<byte[]> getImageByMedicationId(@PathVariable Long id) {
         Author author = authorService.findById(id);
 

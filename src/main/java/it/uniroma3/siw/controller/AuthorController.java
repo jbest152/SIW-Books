@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +9,21 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
+import it.uniroma3.siw.service.ImageService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/author")
@@ -32,6 +39,48 @@ public class AuthorController extends GenericController<Author> {
 	public AuthorController() {
 		super(Author.class);
 	}
+	
+	@PostMapping("/create")
+    public String createMedication(@Valid @ModelAttribute("item") Author item,
+                                   BindingResult result,
+                                   @RequestParam(value = "imageFile", required = false) MultipartFile imageFile) throws IOException {
+
+        if (result.hasErrors()) {
+            return "author/create";
+        }
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            Image img = new Image();
+            img.setName(imageFile.getOriginalFilename());
+            img.setType(imageFile.getContentType());
+            img.setData(imageFile.getBytes());
+            item.setImage(img);
+        }
+
+        service.save(item);
+        return "redirect:/author/" + item.getId();
+    }
+	
+	@PostMapping("/{id}/edit")
+    public String updateAuthor(@Valid @ModelAttribute("item") Author item,
+                                   BindingResult result,
+                                   @RequestParam(value = "imageFile", required = false) MultipartFile imageFile) throws IOException {
+
+        if (result.hasErrors()) {
+            return "author/edit";
+        }
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            Image img = new Image();
+            img.setName(imageFile.getOriginalFilename());
+            img.setType(imageFile.getContentType());
+            img.setData(imageFile.getBytes());
+            item.setImage(img);
+        }
+
+        service.save(item);
+        return "redirect:/author/" + item.getId();
+    }
 
 	@Override
 	@PreAuthorize("hasAuthority('ADMIN')")
