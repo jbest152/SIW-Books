@@ -9,42 +9,17 @@ import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.repository.BookRepository;
 
 @Service
-public class BookService {
-
-	@Autowired
-	private BookRepository repository;
-
-	public Book getBookById(Long id) {
-		return repository.findById(id).get();
-	}
-
-	public Iterable<Book> getAllBooks() {
-		return repository.findAll();
-	}
-
-	public Book saveBook(Book book) {
-		return repository.save(book);
-	}
-
-	public void deleteById(Long id) {
-		repository.deleteById(id);
-	}
-
+public class BookService extends GenericService<Book, Long>{
+	
 	public long countBooks() {
-		return repository.count();
+		return super.repository.count();
 	}
 
 	 public List<Book> findLatestBooks(int limit) {
+		 BookRepository repository = (BookRepository) super.repository;
 		 return repository.findLatestBooks()
                          .stream()
                          .limit(limit)
                          .toList();
 	 }
-
-	/*
-	public void addAuthorToBook(Long authorId, Long bookId) {
-		repository.addAuthorToBook(authorId, bookId);
-	}
-	*/
-
 }

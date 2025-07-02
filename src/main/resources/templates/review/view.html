@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+  <title th:text="${review != null} ? ${review.title} : 'Recensione'">Recensione</title>
+  <link rel="stylesheet" href="/css/review.css" />
+</head>
+
+<body>
+  <section layout:fragment="content" class="review-container">
+    <div th:if="${review}">
+      <article>
+        <header>
+          <h1 th:text="${review.title}">Titolo recensione</h1>
+        </header>
+
+        <section class="review-rating">
+          <strong>Valutazione:</strong> 
+          <span th:text="${review.rating}">5</span>/5
+        </section>
+
+        <section class="review-text">
+          <strong>Testo recensione:</strong>
+          <p th:text="${review.text}">Testo recensione</p>
+        </section>
+
+        <section class="review-book">
+          <strong>Libro:</strong>
+          <a th:href="@{'/book/' + ${review.book.id}}" th:text="${review.book.title}">Titolo libro</a>
+        </section>
+
+        <footer class="review-author">
+          <strong>Recensito da:</strong> 
+          <span th:text="${review.user.name + ' ' + review.user.surname}">Nome Utente</span>
+        </footer>
+      </article>
+    </div>
+
+    <div th:unless="${review}" class="no-review-message">
+      <p>Recensione non trovata.</p>
+    </div>
+  </section>
+</body>
+</html>

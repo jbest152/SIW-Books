@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Author;
@@ -25,100 +27,71 @@ import jakarta.validation.Valid;
 
 
 @Controller
-public class BookController {
-	@Autowired
-	private BookService bookService;
+@RequestMapping("/book")
+public class BookController extends GenericController<Book>{
+
 	@Autowired
 	private AuthorService authorService;
+	
 	@Autowired
-	private ReviewService reviewRepository;
+	private ReviewService reviewService;
+	
 	@Autowired
 	private CredentialsService credentialsService;
 
-
-
-	@GetMapping("/book/{id}")
-	public String getBook(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id, Model model) {
-		model.addAttribute("book", this.bookService.getBookById(id));
-		if (userDetails!=null) {
-			Credentials c = credentialsService.getCredentials(userDetails.getUsername());
-			if (c != null) {
-				User user = c.getUser();
-
-				boolean userHasReviewed = reviewRepository.existsByBookIdAndUserId(id, user.getId());
-				model.addAttribute("userHasReviewed", userHasReviewed);
-			}
+	public BookController() {
+		super(Book.class);
+	}
+	
+	@Override
+	@GetMapping("/{id}")
+	public String view(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+		boolean bool = false;
+		if (userDetails != null) {
+			User user = credentialsService.getCredentials(userDetails.getUsername()).getUser();
+			bool = reviewService.existsByBookIdAndUserId(id, user.getId());
 		}
-		return "detail/book.html";
+		model.addAttribute("userHasReviewed", bool);
+		return super.view(id, userDetails, model);
+	}
+	
+	@Override
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("/{id}/edit")
+	public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+		model.addAttribute("authors", authorService.findAll());
+		return super.showEditForm(id, userDetails, model);
+	}
+	
+	@Override
+	@PostMapping("/{id}/delete")
+	public String delete(@PathVariable Long id) {
+		Book book = super.service.findById(id);
+		for (Author a : book.getAuthors())
+			a.getBooks().remove(book);
+		service.deleteById(id);
+		return "redirect:/book/edit";
 	}
 
-	@GetMapping("/book")
-	public String showAllBooks(Model model) {
-		model.addAttribute("books", this.bookService.getAllBooks());
-		return "list/books.html";
-	}
-
-	@GetMapping("admin/formNewBook")
-	public String formNewBook(Model model) {
-		model.addAttribute("book", new Book());
-		return "form/create/formNewBook.html";
-	}
-
-	@PostMapping("/book")
-	public String newBook(@Valid @ModelAttribute("book") Book book,BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {
-			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-			return "form/create/formNewBook.html";
-		} 
-		else {
-			this.bookService.saveBook(book);
-			return "redirect:/book/"+book.getId();
-		}
-	}
-
-
-	@GetMapping("admin/updateBooks")
-	public String updateBooks(Model model) {
-		model.addAttribute("isAdmin", true);
-		model.addAttribute("books", this.bookService.getAllBooks());
-		return "list/books.html";
-	}
-
-	@GetMapping("admin/book/{id}/update")
-	public String updateBook(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("book", this.bookService.getBookById(id));    
-		model.addAttribute("authors", this.authorService.getAllAuthors());
-		return "form/update/formUpdateBook.html";
-	}
-
-	@PostMapping("admin/book/{id}/delete")
-	public String deleteBook(@PathVariable Long id) {
-		bookService.deleteById(id);
-		return "redirect:/admin/updateBooks";
-	}
-
-	@PostMapping("/book/{id}/addAuthor")
+	@PostMapping("/{id}/addAuthor")
 	public String addAuthorToBook(@PathVariable Long id, @RequestParam Long authorId) {
-		Book book = bookService.getBookById(id);
-		Author author = authorService.getAuthorById(authorId);
+		Book book = super.service.findById(id);
+		Author author = authorService.findById(authorId);
 
 		author.addBook(book);
-		authorService.saveAuthor(author);
+		authorService.save(author);
 
-		return "redirect:/admin/book/" + id + "/update";
+		return "redirect:/book/" + id + "/edit";
 	}
 
-
-	@PostMapping("/book/{id}/removeAuthor")
+	@PostMapping("/{id}/removeAuthor")
 	public String removeAuthorFromBook(@PathVariable Long id, @RequestParam Long authorId) {
-		Book book = bookService.getBookById(id);
-		Author author = authorService.getAuthorById(authorId);
+		Book book = super.service.findById(id);
+		Author author = authorService.findById(authorId);
 
 		author.removeBook(book);
-		authorService.saveAuthor(author);
+		authorService.save(author);
 
-		return "redirect:/admin/book/" + id + "/update";
+		return "redirect:/book/" + id + "/edit";
 	}
-
-
 }

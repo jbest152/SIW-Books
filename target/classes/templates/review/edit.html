@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-form}">
+
+<head>
+  <title>Modifica Recensione</title>
+</head>
+
+<body>
+  <section layout:fragment="content" class="common-form update-form">
+    <h1>Modifica recensione</h1>
+
+    <!-- FORM principale recensione -->
+    <form th:action="@{/review}" method="POST" th:object="${item}">
+      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-message"></p>
+
+      <input type="hidden" th:field="*{id}" />
+	  
+	  <input type="hidden" th:field="*{book}" />
+	  <input type="hidden" th:field="*{user}" />
+	  
+      <label for="title">Titolo:</label>
+      <input required type="text" id="title" th:field="*{title}" />
+      <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></span>
+
+      <label for="text">Testo:</label>
+      <textarea required id="text" th:field="*{text}" rows="5"></textarea>
+      <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}" class="error-message"></span>
+
+      <label for="rating">Valutazione (1-5):</label>
+      <input required type="number" id="rating" min="1" max="5" th:field="*{rating}" />
+      <span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" class="error-message"></span>
+
+      <button type="submit" class="btn-submit">Salva modifiche</button>
+    </form>
+  </section>
+</body>
+</html>

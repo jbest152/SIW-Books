@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Book;
@@ -25,72 +27,50 @@ import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller
-public class ReviewController {
+@RequestMapping("/review")
+public class ReviewController extends GenericController<Review>{
+
+	public ReviewController() {
+		super(Review.class);
+	}
 
 	@Autowired
 	private BookService bookService;
 
 	@Autowired
-	private ReviewService reviewService;
-
-	@Autowired
 	private CredentialsService credentialsService;
 
-	@GetMapping("/book/{id}/review")
-	public String showReviewForm(@PathVariable("id") Long id, Model model) {
-		Book book = bookService.getBookById(id);
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/book/{id}/new")
+	public String showReviewForm(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+		super.addModelUser(model, userDetails);
+		Book book = bookService.findById(id);
 
 		Review review = new Review();
-
-		model.addAttribute("review", review);
-		model.addAttribute("book", book);
-		return "form/create/formNewReview.html";
-	}
-
-	@GetMapping("/review/{id}")
-	public String getReviewById(@PathVariable Long id, Model model) {
-		Review review = reviewService.getReviewById(id);
-		model.addAttribute("review", review);
-		return "detail/review";
-	}
-
-	@PostMapping("/book/{bookId}/newReview")
-	public String saveReview(@AuthenticationPrincipal UserDetails userDetails,@PathVariable("bookId") Long bookId, @ModelAttribute Review review) {
-		Book book = bookService.getBookById(bookId);
 		review.setBook(book);
 
+		model.addAttribute("item", review);
+		return "review/create";
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("/create")
+	public String create(@Valid @ModelAttribute("item") Review review, @AuthenticationPrincipal UserDetails userDetails,BindingResult result) {
 		User user = credentialsService.getCredentials(userDetails.getUsername()).getUser();
+		if (result.hasErrors()) {
+			return  "review/create";
+		}
 		review.setUser(user);
-		user.addReview(review);
-
-		reviewService.saveReview(review);
-		return "redirect:/book/" + bookId;
+		service.save(review);
+		return "redirect:/review/" + review.getId();
 	}
 	
-	@PostMapping("/book/{bookId}/review/{reviewId}/delete")
-	public String deleteReview(@PathVariable Long bookId, @PathVariable Long reviewId) {
-	    reviewService.deleteById(reviewId);
-	    return "redirect:/admin/book/" + bookId + "/update";
-	}
-	
-	@GetMapping("/review/{id}/edit")
-	public String editReview(@PathVariable Long id, Model model) {
-		model.addAttribute("review", reviewService.getReviewById(id));
-		return "form/update/formUpdateReview";
-	}
-	
-	@PostMapping("/review")
-	public String updateReview(@Valid @ModelAttribute("review") Review review,
-						  BindingResult bindingResult,
-			              @RequestParam("bookId") Long bookId,
-			              @AuthenticationPrincipal UserDetails user,
-			              Model model) {
-	    if (bindingResult.hasErrors()) {
-	        return "form/update/formUpdateReview";
-	    }
-	    review.setUser(credentialsService.getCredentials(user.getUsername()).getUser());
-	    review.setBook(bookService.getBookById(bookId));
-	    reviewService.saveReview(review);
-	    return "redirect:/profile";
+	@Override
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("/{id}/delete")
+	public String delete(@PathVariable Long id) {
+		Book book = service.findById(id).getBook();
+		service.deleteById(id);
+		return "redirect:/book/" + book.getId() + "/edit";
 	}
 }

@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +16,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Book {
+public class Book implements BaseEntity{
 	 @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
      private Long id;
@@ -34,7 +35,7 @@ public class Book {
      @ManyToMany(mappedBy = "books")
      private List<Author> authors;
      
-     @OneToMany(mappedBy = "book")
+     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
      private List<Review> reviews;
 
 	public Long getId() {

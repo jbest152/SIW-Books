@@ -1,6 +1,9 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Author;
@@ -16,85 +20,45 @@ import it.uniroma3.siw.service.BookService;
 import jakarta.validation.Valid;
 
 @Controller
-public class AuthorController {
+@RequestMapping("/author")
+public class AuthorController extends GenericController<Author> {
+
 
 	@Autowired
 	private AuthorService authorService;
+	
 	@Autowired
 	private BookService bookService;
-
-	@GetMapping("/author/{id}")
-	public String getAuthor(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("author", this.authorService.getAuthorById(id));    
-		return "detail/author.html";
+	
+	public AuthorController() {
+		super(Author.class);
 	}
 
-	@GetMapping("/author")
-	public String showAllAuthors(Model model) {
-		model.addAttribute("authors", this.authorService.getAllAuthors());
-		return "list/authors.html";
+	@Override
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("/{id}/edit")
+	public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+		model.addAttribute("books", bookService.findAll());
+		return super.showEditForm(id, userDetails, model);
 	}
 
-	@GetMapping("admin/formNewAuthor")
-	public String formNewAuthor(Model model) {
-		model.addAttribute("author", new Author());
-		return "form/create/formNewAuthor.html";
-	}
-
-	@GetMapping("admin/updateAuthors")
-	public String updateAuthors(Model model) {
-		model.addAttribute("isAdmin", true);
-		model.addAttribute("authors", this.authorService.getAllAuthors());
-		return "list/authors.html";
-	}
-
-	@GetMapping("admin/author/{id}/update")
-	public String updateBook(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("author", this.authorService.getAuthorById(id));    
-		model.addAttribute("books", this.bookService.getAllBooks());
-		return "form/update/formUpdateAuthor.html";
-	}
-
-	@PostMapping("/author")
-	public String createOrUpdateAuthor(@Valid @ModelAttribute("author") Author author,BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {
-			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-			return "form/create/formNewAuthor.html";
-		} 
-
-		if (author.getId() != null) {
-			Author temp = authorService.getAuthorById(author.getId());
-			author.setBooks(temp.getBooks());
-		}
-		this.authorService.saveAuthor(author);
-		model.addAttribute("author", author);
-		return "redirect:/author/"+author.getId();
-
-	}
-
-	@PostMapping("admin/author/{id}/delete")
-	public String deleteAuthor(@PathVariable Long id) {
-		authorService.deleteById(id);
-		return "redirect:/admin/updateAuthors";
-	}
-
-	@PostMapping("/author/{id}/addBook")
+	@PostMapping("/{id}/addBook")
 	public String addBookToAuthor(@PathVariable Long id, @RequestParam Long bookId) {
-		Author author = authorService.getAuthorById(id);
+		Author author = authorService.findById(id);
 
-		author.addBook(bookService.getBookById(bookId));
-		authorService.saveAuthor(author);
+		author.addBook(bookService.findById(bookId));
+		authorService.save(author);
 
-		return "redirect:/admin/author/" + id + "/update";
+		return "redirect:/author/" + id + "/edit";
 	}
 
-	@PostMapping("/author/{id}/removeBook")
+	@PostMapping("/{id}/removeBook")
 	public String removeBookFromAuthor(@PathVariable Long id, @RequestParam Long bookId) {
-		Author author = authorService.getAuthorById(id);
+		Author author = authorService.findById(id);
 
-		author.removeBook(bookService.getBookById(bookId));
-		authorService.saveAuthor(author);
+		author.removeBook(bookService.findById(bookId));
+		authorService.save(author);
 
-		return "redirect:/admin/author/"+ id + "/update";
+		return "redirect:/author/"+ id + "/edit";
 	}
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-form}">
+<head>
+  <title>Modifica Autore</title>
+  <link rel="stylesheet" href="/css/form-manage.css" />
+</head>
+
+<body>
+  <section layout:fragment="content" class="common-form update-form">
+    <h1>Modifica autore</h1>
+
+    <!-- FORM principale autore -->
+    <form th:action="@{/author/}" method="POST" th:object="${item}">
+      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-message"></p>
+
+      <input type="hidden" th:field="*{id}" />
+
+      <label for="name">Nome:</label>
+      <input required type="text" id="name" th:field="*{name}" />
+      <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></span>
+
+      <label for="surname">Cognome:</label>
+      <input required type="text" id="surname" th:field="*{surname}" />
+      <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error-message"></span>
+
+      <label for="nationality">Nazionalità:</label>
+      <input required type="text" id="nationality" th:field="*{nationality}" />
+      <span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}" class="error-message"></span>
+
+      <label for="dateOfBirth">Data di nascita:</label>
+      <input required type="date" id="dateOfBirth"
+             th:value="${#temporals.format(item.dateOfBirth, 'yyyy-MM-dd')}"
+             name="dateOfBirth" />
+      <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="error-message"></span>
+
+      <label for="dateOfDeath">Data di morte:</label>
+      <input type="date" id="dateOfDeath"
+             th:value="${item.dateOfDeath != null} ? ${#temporals.format(item.dateOfDeath, 'yyyy-MM-dd')} : ''"
+             name="dateOfDeath" />
+
+      <label for="urlImage">URL immagine:</label>
+      <input type="url" id="urlImage" th:field="*{urlImage}" />
+
+      <button type="submit" class="btn-submit">Conferma</button>
+    </form>
+
+    <hr style="margin: 2rem 0; border-color:#ddd;" />
+
+    <!-- Libri associati -->
+    <h2>Libri associati</h2>
+    <ul class="books-list">
+      <li th:each="book : ${item.books}">
+        <span th:text="${book.title}"></span>
+        <form th:action="@{/author/{id}/removeBook(id=${item.id})}" method="post" style="display:inline;">
+          <input type="hidden" name="bookId" th:value="${book.id}" />
+          <button type="submit" class="btn-remove">Rimuovi</button>
+        </form>
+      </li>
+    </ul>
+
+    <hr style="margin: 2rem 0; border-color:#ddd;" />
+
+    <!-- Libri disponibili -->
+	<h2>Libri disponibili</h2>
+	<ul class="books-list">
+	  <li th:each="book : ${books}" th:if="${!item.books.contains(book)}">
+	    <div>
+	      <strong th:text="${book.title}"></strong>
+	    </div>
+	    <form th:action="@{/author/{id}/addBook(id=${item.id})}" method="post">
+	      <input type="hidden" name="bookId" th:value="${book.id}" />
+	      <button type="submit" class="btn-add">Aggiungi</button>
+	    </form>
+	  </li>
+	</ul>
+  </section>
+</body>
+</html>
