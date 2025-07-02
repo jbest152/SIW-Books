@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
 
 <head>
@@ -40,7 +39,7 @@
     </div>
 
     <!-- Sezione amministratore -->
-    <div class="admin-section" sec:authorize="hasAuthority('ADMIN')">
+    <div class="admin-section">
       <h2>Sezione Amministratore</h2>
       <a th:href="@{/admin/bookIndex}">📘 Operazioni sui libri</a>
       <a th:href="@{/admin/authorIndex}">✍️ Operazioni sugli autori</a>
