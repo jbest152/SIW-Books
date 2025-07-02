@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/layout}">
 <head>
@@ -48,12 +47,11 @@
 		  </ul>
 	    </div>
 
-	    <a sec:authorize="isAuthenticated()"
-	       th:if="${!userHasReviewed}"
+	    <div th:if="${!userHasReviewed}"
 	       th:href="@{'/book/' + ${book.id} + '/review'}"
 	       class="review-button">
-	      Aggiungi una recensione
-	    </a>
+	      	Aggiungi una recensione
+	    </div>
 
 	    <p th:if="${userHasReviewed}" class="empty-info">
 	      Hai già scritto una recensione per questo libro.
