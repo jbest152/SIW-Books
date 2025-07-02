@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+  <title th:text="${author != null} ? ${author.name + ' ' + author.surname} : 'Autore'">Autore</title>
+  <link rel="stylesheet" href="/css/author.css" />
+</head>
+
+<body>
+	<section layout:fragment="content">
+	  <div th:if="${author}" class="author-container">
+	    <h1 class="author-name" th:text="${author.name + ' ' + author.surname}"></h1>
+
+	    <div class="author-info">
+	      <div>Nazionalità: <span th:text="${author.nationality}"></span></div>
+	      <div>Giorno di nascita: <span th:text="${author.dateOfBirth}"></span></div>
+	      <div th:if="${author.dateOfDeath}">
+	        Giorno di morte: <span th:text="${author.dateOfDeath}"></span>
+	      </div>
+	    </div>
+
+	    <div class="author-photo">
+	      <img th:src="${author.urlImage}" alt="Foto autore" />
+	    </div>
+
+	    <div class="section-group">
+	      <h2>Libri scritti</h2>
+
+	      <div th:if="${author.books.isEmpty()}" class="empty-info">
+	        L'autore non ha scritto libri
+	      </div>
+
+	      <ul class="book-list" th:if="${!author.books.isEmpty()}">
+	        <li th:each="book : ${author.books}">
+	          <a th:href="@{'/book/' + ${book.id}}" th:text="${book.title}"></a>
+	        </li>
+	      </ul>
+	    </div>
+	  </div>
+
+	  <div th:unless="${author}" class="not-found">
+	    Autore non trovato
+	  </div>
+	</section>
+</body>
+</html>

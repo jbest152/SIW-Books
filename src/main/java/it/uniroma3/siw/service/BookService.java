@@ -10,25 +10,16 @@ import it.uniroma3.siw.repository.BookRepository;
 
 @Service
 public class BookService extends GenericService<Book, Long>{
-
-	@Autowired
-	private BookRepository repository;
 	
 	public long countBooks() {
-		return repository.count();
+		return super.repository.count();
 	}
 
 	 public List<Book> findLatestBooks(int limit) {
+		 BookRepository repository = (BookRepository) super.repository;
 		 return repository.findLatestBooks()
                          .stream()
                          .limit(limit)
                          .toList();
 	 }
-
-	/*
-	public void addAuthorToBook(Long authorId, Long bookId) {
-		repository.addAuthorToBook(authorId, bookId);
-	}
-	*/
-
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+  <title>Autori</title>
+  <link rel="stylesheet" href="/css/card-grid.css" />
+</head>
+
+<body>
+  <section layout:fragment="content">
+    <h1>Autori</h1>
+
+    <div th:if="${authors.isEmpty()}">Non ci sono autori nel sistema</div>
+
+    <div class="card-grid">
+      <div class="card" th:each="author : ${authors}">
+        <a th:href="@{'/author/' + ${author.id}}">
+          <h2 th:text="${author.name + ' ' + author.surname}">Nome Cognome</h2>
+        </a>
+
+        <div class="admin-actions" th:if="${isAdmin}">
+          <a th:href="@{'/author/' + ${author.id} + '/edit'}">Modifica</a>
+          <form th:action="@{'/author/' + ${author.id} + '/delete'}" method="post">
+            <button type="submit">Elimina</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

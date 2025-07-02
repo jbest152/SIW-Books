@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-form}">
+<head>
+  <title>New Author</title>
+</head>
+<body>
+  <section layout:fragment="content">
+    <form th:action="@{/author}" method="POST" th:object="${item}" class="common-form">
+    <h1>Aggiungi un autore</h1>
+      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+      <input type="hidden" th:field="*{id}" />
+      <label>Nome:</label>
+      <input required type="text" th:field="*{name}" />
+      <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+      <label>Cognome:</label>
+      <input required type="text" th:field="*{surname}" />
+      <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+
+      <label>Nazionalità:</label>
+      <input required type="text" th:field="*{nationality}" />
+      <span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></span>
+
+      <label>Data di nascita:</label>
+      <input required type="date" th:field="*{dateOfBirth}" />
+      <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+
+      <label>Data di morte:</label>
+      <input type="date" th:field="*{dateOfDeath}" />
+
+      <label>URL immagine:</label>
+      <input type="url" th:field="*{urlImage}" />
+
+      <button type="submit" class="btn-submit">Conferma</button>
+    </form>
+  </section>
+</body>
+</html>

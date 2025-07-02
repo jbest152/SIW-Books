@@ -48,14 +48,24 @@ public class BookController extends GenericController<Book>{
 		model.addAttribute("authors", authorService.findAll());
 		return super.showEditForm(id, model);
 	}
+	
+	@Override
+	@PostMapping("/{id}/delete")
+	public String delete(@PathVariable Long id) {
+		Book book = super.service.findById(id);
+		for (Author a : book.getAuthors())
+			a.getBooks().remove(book);
+		service.deleteById(id);
+		return "redirect:/book/edit";
+	}
 
 	@PostMapping("/{id}/addAuthor")
 	public String addAuthorToBook(@PathVariable Long id, @RequestParam Long authorId) {
 		Book book = super.service.findById(id);
-		Author author = authorService.getAuthorById(authorId);
+		Author author = authorService.findById(authorId);
 
 		author.addBook(book);
-		authorService.saveAuthor(author);
+		authorService.save(author);
 
 		return "redirect:/book/" + id + "/edit";
 	}
@@ -63,10 +73,10 @@ public class BookController extends GenericController<Book>{
 	@PostMapping("/{id}/removeAuthor")
 	public String removeAuthorFromBook(@PathVariable Long id, @RequestParam Long authorId) {
 		Book book = super.service.findById(id);
-		Author author = authorService.getAuthorById(authorId);
+		Author author = authorService.findById(authorId);
 
 		author.removeBook(book);
-		authorService.saveAuthor(author);
+		authorService.save(author);
 
 		return "redirect:/book/" + id + "/edit";
 	}

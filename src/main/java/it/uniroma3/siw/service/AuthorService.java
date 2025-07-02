@@ -11,22 +11,6 @@ public class AuthorService extends GenericService<Author, Long>{
 
 	@Autowired
 	private AuthorRepository repository;
-	
-	public Author getAuthorById(Long id) {
-		return repository.findById(id).get();
-	}
-
-	public Iterable<Author> getAllAuthors() {
-		return repository.findAll();
-	}
-
-	public Author saveAuthor(Author Author) {
-		return repository.save(Author);
-	}
-
-	public void deleteById(Long id) {
-		repository.deleteById(id);
-	}
 
 	public long countAuthors() {
 		return repository.count();
