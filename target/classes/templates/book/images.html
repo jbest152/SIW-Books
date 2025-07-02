@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-form}">
+<head>
+  <title>Aggiungi Immagini al Libro</title>
+  <link rel="stylesheet" href="/css/form-manage.css" />
+</head>
+<body>
+	
+	<section layout:fragment="content" class="common-form update-form manage-authors-reviews">
+	  <h1 th:text="'Gestione immagini per: ' + ${book.title}">Gestione immagini</h1>
+	
+	  <!-- Lista immagini esistenti -->
+	  <h2>Immagini attuali</h2>
+	  <div class="image-gallery">
+	    <div th:each="image : ${book.images}">
+	      <img th:src="@{'/image/' + ${image.id}}" style="width: 100%; max-height: 150px; object-fit: cover;" />
+	      <form th:action="@{'/book/' + ${book.id} + '/removeImage'}" method="post">
+	        <input type="hidden" name="imageId" th:value="${image.id}" />
+	        <button type="submit" class="btn-remove">Rimuovi</button>
+	      </form>
+	    </div>
+	  </div>
+	
+	  <hr style="margin: 2rem 0; border-color: #ccc;" />
+	
+	  <!-- Form per aggiungere immagini -->
+	  <h2>Aggiungi nuove immagini</h2>
+	  <form th:action="@{'/book/' + ${book.id} + '/addImage'}" method="post" enctype="multipart/form-data">
+	    <label for="imageFile">Seleziona immagine (puoi caricarne più di una):</label>
+	    <input type="file" id="imageFile" name="imageFiles" multiple accept="image/*" required />
+	    <button type="submit" class="btn-submit btn-add">Carica Immagini</button>
+	  </form>
+	
+	</section>
+
+
+	</body>
+</html>

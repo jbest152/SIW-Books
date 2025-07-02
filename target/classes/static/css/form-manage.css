@@ -71,3 +71,9 @@
 .btn-add:hover {
   background-color: #159c87;
 }
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; /* spazio tra le immagini */
+}

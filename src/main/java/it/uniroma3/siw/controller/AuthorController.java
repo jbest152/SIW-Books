@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,8 @@ import jakarta.validation.Valid;
 @RequestMapping("/author")
 public class AuthorController extends GenericController<Author> {
 
+    private final UserDetailsService userDetailsService;
+
 
 	@Autowired
 	private AuthorService authorService;
@@ -36,8 +39,9 @@ public class AuthorController extends GenericController<Author> {
 	@Autowired
 	private BookService bookService;
 	
-	public AuthorController() {
+	public AuthorController(UserDetailsService userDetailsService) {
 		super(Author.class);
+		this.userDetailsService = userDetailsService;
 	}
 	
 	@PostMapping("/create")
@@ -76,6 +80,9 @@ public class AuthorController extends GenericController<Author> {
             img.setType(imageFile.getContentType());
             img.setData(imageFile.getBytes());
             item.setImage(img);
+        }
+        else {
+        	item.setImage(authorService.findById(item.getId()).getImage());
         }
 
         service.save(item);

@@ -21,7 +21,6 @@ public class Image implements BaseEntity{
     private String name;
     private String type;
 
-
     @Lob
     @Column(name = "data")
     private byte[] data;

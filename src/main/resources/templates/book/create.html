@@ -19,9 +19,6 @@
       <input type="text" th:field="*{year}" />
       <div class="error-message" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
 
-      <label>URL immagine:</label>
-      <input type="url" th:field="*{urlImage}" />
-
       <button type="submit" class="btn-submit">Conferma</button>
     </form>
   </section>

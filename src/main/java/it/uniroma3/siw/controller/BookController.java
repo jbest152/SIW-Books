@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
@@ -30,17 +31,17 @@ public class BookController extends GenericController<Book>{
 
 	@Autowired
 	private AuthorService authorService;
-	
+
 	@Autowired
 	private ReviewService reviewService;
-	
+
 	@Autowired
 	private CredentialsService credentialsService;
 
 	public BookController() {
 		super(Book.class);
 	}
-	
+
 	@Override
 	@GetMapping("/{id}")
 	public String view(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
@@ -52,7 +53,7 @@ public class BookController extends GenericController<Book>{
 		model.addAttribute("userHasReviewed", bool);
 		return super.view(id, userDetails, model);
 	}
-	
+
 	@Override
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/{id}/edit")
@@ -60,7 +61,31 @@ public class BookController extends GenericController<Book>{
 		model.addAttribute("authors", authorService.findAll());
 		return super.showEditForm(id, userDetails, model);
 	}
-	
+
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("/{id}/images")
+	public String manageImages(@PathVariable Long id, Model model) {
+		Book book = super.service.findById(id);
+		model.addAttribute("book", book);
+		return "book/images";
+	}
+
+	@PostMapping("/{id}/addImage")
+	public String uploadImages(@PathVariable Long id,
+			@RequestParam("imageFiles") List<MultipartFile> imageFiles) {
+		BookService bookService = (BookService) super.service;
+		bookService.addImagesToBook(id, imageFiles);
+		return "redirect:/book/" + id + "/images";
+	}
+
+	@PostMapping("/{id}/removeImage")
+	public String removeImage(@PathVariable Long id,
+			@RequestParam("imageId") Long imageId) {
+		BookService bookService = (BookService) super.service;
+		bookService.removeImageFromBook(id, imageId);
+		return "redirect:/book/" + id + "/images";
+	}
+
 	@Override
 	@PostMapping("/{id}/delete")
 	public String delete(@PathVariable Long id) {
@@ -92,16 +117,16 @@ public class BookController extends GenericController<Book>{
 
 		return "redirect:/book/" + id + "/edit";
 	}
-	
+
 	@GetMapping("/search")
-    public String searchBooks(@RequestParam("query") String query, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+	public String searchBooks(@RequestParam("query") String query, @AuthenticationPrincipal UserDetails userDetails, Model model) {
 		System.out.println("query");
 		addModelUser(model, userDetails);
 		BookService bookService = (BookService) super.service;
-        List<Book> results = bookService.searchByTitle(query);
+		List<Book> results = bookService.searchByTitle(query);
 
-        model.addAttribute("books", results);
+		model.addAttribute("books", results);
 
-        return "book/list";
-    }
+		return "book/list";
+	}
 }

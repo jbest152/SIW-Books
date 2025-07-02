@@ -84,7 +84,6 @@ public abstract class GenericController<T extends BaseEntity> {
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/{id}/edit")
 	public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
-		System.out.println("ciao");
 		addModelUser(model, userDetails);
 		T item = service.findById(id);
 

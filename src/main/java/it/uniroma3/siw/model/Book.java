@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
@@ -30,7 +31,9 @@ public class Book implements BaseEntity {
 	@Max(value = 2025, message = "{book.year.max}")
 	private Integer year;
 
-	private String urlImage;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "book_id")
+	private List<Image> images;
 
 	@ManyToMany(mappedBy = "books")
 	private List<Author> authors;
@@ -62,12 +65,12 @@ public class Book implements BaseEntity {
 		this.year = year;
 	}
 
-	public String getUrlImage() {
-		return urlImage;
+	public List<Image> getImages() {
+		return images;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	public List<Author> getAuthors() {
@@ -80,7 +83,7 @@ public class Book implements BaseEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(authors, id, title, urlImage, year);
+		return Objects.hash(authors, id, title, year);
 	}
 
 	@Override
@@ -93,7 +96,7 @@ public class Book implements BaseEntity {
 			return false;
 		Book other = (Book) obj;
 		return Objects.equals(authors, other.authors) && Objects.equals(id, other.id)
-				&& Objects.equals(title, other.title) && Objects.equals(urlImage, other.urlImage)
+				&& Objects.equals(title, other.title)
 				&& Objects.equals(year, other.year);
 	}
 

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/layout-form}">
 <head>
-  <title>Modifica libro</title>
+  <title>Modifica Libro</title>
   <link rel="stylesheet" href="/css/form-manage.css" />
 
 </head>
@@ -12,11 +12,15 @@
 	<section layout:fragment="content" class="common-form update-form">
 	  <h1>Modifica libro</h1>
 
+	  <!-- Link gestione immagini -->
+	  <a th:href="@{/book/{id}/images(id=${item.id})}" class="btn-manage-images">Gestisci Immagini</a>
+	  
 	  <!-- FORM principale libro -->
 	  <form th:action="@{/book}" method="POST" th:object="${item}">
 	    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-message"></p>
 
 	    <input type="hidden" th:field="*{id}" />
+		<input type="hidden" th:field="*{images}" />
 
 	    <label for="title">Titolo:</label>
 	    <input required type="text" id="title" th:field="*{title}" />
@@ -25,9 +29,6 @@
 	    <label for="year">Anno:</label>
 	    <input required type="number" id="year" th:field="*{year}" />
 	    <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="error-message"></span>
-
-	    <label for="urlImage">URL immagine:</label>
-	    <input type="url" id="urlImage" th:field="*{urlImage}" />
 
 	    <button type="submit" class="btn-submit">Conferma</button>
 	  </form>
