@@ -109,7 +109,7 @@ public abstract class GenericController<T extends BaseEntity> {
 		return clazz.getDeclaredConstructor().newInstance();
 	}
 	
-	private void addModelUser(Model model, UserDetails userDetails) {
+	protected void addModelUser(Model model, UserDetails userDetails) {
 		User user = null;
 		if (userDetails != null)
 			user = credentialsService.getCredentials(userDetails.getUsername()).getUser();

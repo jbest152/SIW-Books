@@ -37,13 +37,11 @@ public class ReviewController extends GenericController<Review>{
 	private BookService bookService;
 
 	@Autowired
-	private ReviewService reviewService;
-
-	@Autowired
 	private CredentialsService credentialsService;
 
 	@GetMapping("/book/{id}/new")
-	public String showReviewForm(@PathVariable("id") Long id, Model model) {
+	public String showReviewForm(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+		super.addModelUser(model, userDetails);
 		Book book = bookService.findById(id);
 
 		Review review = new Review();
