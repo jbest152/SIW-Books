@@ -52,7 +52,8 @@ public abstract class GenericController<T extends BaseEntity> {
 
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/new")
-	public String showCreateForm(Model model){
+	public String showCreateForm(@AuthenticationPrincipal UserDetails userDetails, Model model){
+		addModelUser(model, userDetails);
 		try {
 			model.addAttribute("item", getEntityInstance());
 		} catch (Exception e) {
@@ -72,15 +73,17 @@ public abstract class GenericController<T extends BaseEntity> {
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/edit")
-	public String updateItems(Model model) {
+	public String editItems(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+		addModelUser(model, userDetails);
 		model.addAttribute("isAdmin", true);
 		model.addAttribute(className + "s", service.findAll());
 		return className + "/list";
 	}
 
-	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/{id}/edit")
-	public String showEditForm(@PathVariable Long id, Model model) {
+	public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+		System.out.println("ciao");
+		addModelUser(model, userDetails);
 		T item = service.findById(id);
 
 		model.addAttribute("item", item);
@@ -96,7 +99,6 @@ public abstract class GenericController<T extends BaseEntity> {
 		return "redirect:/" + className + "/" + id;
 	}
 
-	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/{id}/delete")
 	public String delete(@PathVariable Long id) {
 		service.deleteById(id);

@@ -1,6 +1,8 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,9 +35,9 @@ public class AuthorController extends GenericController<Author> {
 
 	@Override
 	@GetMapping("/{id}/edit")
-	public String showEditForm(@PathVariable Long id, Model model) {
+	public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
 		model.addAttribute("books", bookService.findAll());
-		return super.showEditForm(id, model);
+		return super.showEditForm(id, userDetails, model);
 	}
 
 

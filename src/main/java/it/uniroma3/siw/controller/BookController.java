@@ -58,9 +58,9 @@ public class BookController extends GenericController<Book>{
 	
 	@Override
 	@GetMapping("/{id}/edit")
-	public String showEditForm(@PathVariable Long id, Model model) {
+	public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
 		model.addAttribute("authors", authorService.findAll());
-		return super.showEditForm(id, model);
+		return super.showEditForm(id, userDetails, model);
 	}
 	
 	@Override

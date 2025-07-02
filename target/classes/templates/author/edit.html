@@ -12,7 +12,7 @@
     <h1>Modifica autore</h1>
 
     <!-- FORM principale autore -->
-    <form th:action="@{/author/}" method="POST" th:object="${author}">
+    <form th:action="@{/author/}" method="POST" th:object="${item}">
       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-message"></p>
 
       <input type="hidden" th:field="*{id}" />
@@ -31,13 +31,13 @@
 
       <label for="dateOfBirth">Data di nascita:</label>
       <input required type="date" id="dateOfBirth"
-             th:value="${#temporals.format(author.dateOfBirth, 'yyyy-MM-dd')}"
+             th:value="${#temporals.format(item.dateOfBirth, 'yyyy-MM-dd')}"
              name="dateOfBirth" />
       <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="error-message"></span>
 
       <label for="dateOfDeath">Data di morte:</label>
       <input type="date" id="dateOfDeath"
-             th:value="${author.dateOfDeath != null} ? ${#temporals.format(author.dateOfDeath, 'yyyy-MM-dd')} : ''"
+             th:value="${item.dateOfDeath != null} ? ${#temporals.format(item.dateOfDeath, 'yyyy-MM-dd')} : ''"
              name="dateOfDeath" />
 
       <label for="urlImage">URL immagine:</label>
@@ -51,9 +51,9 @@
     <!-- Libri associati -->
     <h2>Libri associati</h2>
     <ul class="books-list">
-      <li th:each="book : ${author.books}">
+      <li th:each="book : ${item.books}">
         <span th:text="${book.title}"></span>
-        <form th:action="@{/author/{id}/removeBook(id=${author.id})}" method="post" style="display:inline;">
+        <form th:action="@{/author/{id}/removeBook(id=${item.id})}" method="post" style="display:inline;">
           <input type="hidden" name="bookId" th:value="${book.id}" />
           <button type="submit" class="btn-remove">Rimuovi</button>
         </form>
@@ -65,11 +65,11 @@
     <!-- Libri disponibili -->
 	<h2>Libri disponibili</h2>
 	<ul class="books-list">
-	  <li th:each="book : ${books}" th:if="${!author.books.contains(book)}">
+	  <li th:each="book : ${books}" th:if="${!item.books.contains(book)}">
 	    <div>
 	      <strong th:text="${book.title}"></strong>
 	    </div>
-	    <form th:action="@{/author/{id}/addBook(id=${author.id})}" method="post">
+	    <form th:action="@{/author/{id}/addBook(id=${item.id})}" method="post">
 	      <input type="hidden" name="bookId" th:value="${book.id}" />
 	      <button type="submit" class="btn-add">Aggiungi</button>
 	    </form>
