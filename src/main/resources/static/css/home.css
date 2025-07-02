@@ -1,0 +1,111 @@
+/* ====== Sezione principale ====== */
+section {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2.5rem 3rem;
+  background-color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+}
+
+/* ====== Titolo di benvenuto ====== */
+h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #16a085;
+}
+
+/* ====== Statistiche generali ====== */
+.stats {
+  background: #f0f4f8;
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #34495e;
+}
+
+.stats p {
+  margin-bottom: 0.8rem;
+}
+
+/* ====== Ultimi libri aggiunti ====== */
+.latest-books h2 {
+  font-size: 1.8rem;
+  border-bottom: 3px solid #16a085;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #16a085;
+}
+
+.latest-books ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.latest-books li {
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+}
+
+.latest-books li a {
+  text-decoration: none;
+  color: #0984e3;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.latest-books li a:hover {
+  color: #74b9ff;
+  text-decoration: underline;
+}
+
+/* ====== Sezione amministratore ====== */
+.admin-section {
+  margin-top: 3rem;
+  background: #ffe6e6;
+  padding: 1.8rem 2rem;
+  border-radius: 14px;
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.admin-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  color: #c0392b;
+}
+
+.admin-section a {
+  display: inline-block;
+  margin-right: 1.8rem;
+  font-weight: 700;
+  color: #c0392b;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.admin-section a:hover {
+  color: #992d22;
+  text-decoration: underline;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  section {
+    margin: 2rem 1rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .admin-section a {
+    margin-bottom: 1rem;
+    display: block;
+  }
+}

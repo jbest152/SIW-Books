@@ -1,26 +1,24 @@
 .review-container {
   max-width: 700px;
   margin: 3rem auto;
+  background: #fff;
+  padding: 2.5rem 3rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2c3e50;
-  background: #fff;
-  padding: 2rem 3rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-.review-container h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+.review-title {
+  font-size: 2.4rem;
   font-weight: 700;
+  margin-bottom: 0.3rem;
   text-align: center;
   color: #16a085;
 }
 
-.review-rating,
-.review-book,
-.review-author {
-  margin: 1rem 0;
+.review-rating {
+  margin: 1.5rem 0;
   font-size: 1.1rem;
 }
 
@@ -33,6 +31,29 @@
 
 .review-text p {
   margin-top: 0.4rem;
+}
+
+.review-book {
+  margin: 1.5rem 0;
+  font-size: 1.1rem;
+}
+
+.review-book a {
+  color: #0984e3;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.review-book a:hover {
+  color: #74b9ff;
+  text-decoration: underline;
+}
+
+.review-author {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .no-review-message {

@@ -8,33 +8,29 @@
 </head>
 
 <body>
-  <section layout:fragment="content" class="review-container">
-    <div th:if="${review}">
-      <article>
-        <header>
-          <h1 th:text="${review.title}">Titolo recensione</h1>
-        </header>
+  <section layout:fragment="content">
+    <div class="review-container" th:if="${review}">
+      <h1 class="review-title" th:text="${review.title}">Titolo recensione</h1>
 
-        <section class="review-rating">
-          <strong>Valutazione:</strong> 
-          <span th:text="${review.rating}">5</span>/5
-        </section>
+      <div class="review-rating">
+        <strong>Valutazione:</strong> 
+        <span th:text="${review.rating}">5</span>/5
+      </div>
 
-        <section class="review-text">
-          <strong>Testo recensione:</strong>
-          <p th:text="${review.text}">Testo recensione</p>
-        </section>
+      <div class="review-text">
+        <strong>Testo recensione:</strong>
+        <p th:text="${review.text}">Testo recensione</p>
+      </div>
 
-        <section class="review-book">
-          <strong>Libro:</strong>
-          <a th:href="@{'/book/' + ${review.book.id}}" th:text="${review.book.title}">Titolo libro</a>
-        </section>
+      <div class="review-book">
+        <strong>Libro:</strong>
+        <a th:href="@{'/book/' + ${review.book.id}}" th:text="${review.book.title}">Titolo libro</a>
+      </div>
 
-        <footer class="review-author">
-          <strong>Recensito da:</strong> 
-          <span th:text="${review.user.name + ' ' + review.user.surname}">Nome Utente</span>
-        </footer>
-      </article>
+      <footer class="review-author">
+        <strong>Recensito da:</strong> 
+        <span th:text="${review.user.name + ' ' + review.user.surname}">Nome Utente</span>
+      </footer>
     </div>
 
     <div th:unless="${review}" class="no-review-message">
