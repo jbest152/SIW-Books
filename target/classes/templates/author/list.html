@@ -11,6 +11,17 @@
   <section layout:fragment="content">
     <h1>Autori</h1>
 
+	<!-- Barra di ricerca -->
+    <div class="search-bar" style="margin-bottom: 20px;">
+      <form th:action="@{/author/search}" method="get">
+        <input type="text" name="query" placeholder="Cerca un autore..." 
+               th:value="${param.query}" required />
+        <button type="submit">
+          Cerca
+        </button>
+      </form>
+    </div>
+	
     <div th:if="${authors.isEmpty()}">Non ci sono autori nel sistema</div>
 
     <div class="card-grid">

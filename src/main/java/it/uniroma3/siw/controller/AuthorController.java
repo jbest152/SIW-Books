@@ -1,14 +1,14 @@
 package it.uniroma3.siw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
-import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/author")
@@ -61,4 +60,15 @@ public class AuthorController extends GenericController<Author> {
 
 		return "redirect:/author/"+ id + "/edit";
 	}
+	
+	@GetMapping("/search")
+    public String searchAuthors(@RequestParam("query") String query, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+		addModelUser(model, userDetails);
+		AuthorService authorService = (AuthorService) super.service;
+        List<Author> results = authorService.searchByNameOrSurname(query);
+
+        model.addAttribute("authors", results);
+
+        return "author/list";
+    }
 }

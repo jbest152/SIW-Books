@@ -111,3 +111,63 @@ a:hover,
 .admin-actions a:hover {
   text-decoration: none;
 }
+
+section {
+  max-width: 900px;  /* o la larghezza che usi per il container */
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.search-bar {
+  width: 100%;      /* Occupa tutta la larghezza del container */
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  background: #fff;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.search-bar form {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-bar input[type="text"] {
+  flex-grow: 1;
+  padding: 0.6rem 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar input[type="text"]:focus {
+  outline: none;
+  border-color: #0984e3;
+  box-shadow: 0 0 8px rgba(9, 132, 227, 0.4);
+}
+
+.search-bar button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #0984e3;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.search-bar button:hover {
+  background-color: #74b9ff;
+  transform: scale(1.05);
+}
+
+.search-bar button:active {
+  transform: scale(0.95);
+}

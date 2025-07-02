@@ -2,9 +2,7 @@ package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Book;
-import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
-import it.uniroma3.siw.service.ReviewService;
-import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller

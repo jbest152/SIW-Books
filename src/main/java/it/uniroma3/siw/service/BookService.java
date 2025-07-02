@@ -22,4 +22,9 @@ public class BookService extends GenericService<Book, Long>{
                          .limit(limit)
                          .toList();
 	 }
+	 
+	 public List<Book> searchByTitle(String query) {
+		 BookRepository repository = (BookRepository) super.repository;
+		 return repository.findByTitleContainingIgnoreCase(query);
+	 }
 }

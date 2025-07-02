@@ -11,6 +11,17 @@
   <section layout:fragment="content">
     <h1>Libri</h1>
 
+    <!-- Barra di ricerca -->
+    <div class="search-bar" style="margin-bottom: 20px;">
+      <form th:action="@{/book/search}" method="get">
+        <input type="text" name="query" placeholder="Cerca un libro..." 
+               th:value="${param.query}" required />
+        <button type="submit">
+          Cerca
+        </button>
+      </form>
+    </div>
+
     <div th:if="${books.isEmpty()}">Non ci sono libri nel sistema</div>
 
     <div class="card-grid">
@@ -23,7 +34,7 @@
 
         <div class="admin-actions" th:if="${isAdmin}">
           <a th:href="@{'/book/' + ${book.id} + '/edit'}">Modifica</a>
-          <form th:action="@{'/book/' + ${book.id} + '/delete'}" method="post">
+          <form th:action="@{'/book/' + ${book.id} + '/delete'}" method="post" style="display:inline;">
             <button type="submit">Elimina</button>
           </form>
         </div>

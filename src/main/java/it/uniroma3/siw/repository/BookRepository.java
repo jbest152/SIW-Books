@@ -11,4 +11,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     @Query("SELECT b FROM Book b ORDER BY b.id DESC")
     List<Book> findLatestBooks();
+    
+    List<Book> findByTitleContainingIgnoreCase(String title);
 }
