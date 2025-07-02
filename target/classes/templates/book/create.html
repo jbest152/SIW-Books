@@ -9,15 +9,15 @@
   <section layout:fragment="content">
     <h1>Aggiungi un libro</h1>
     <form th:action="@{/book}" method="POST" th:object="${item}" class="common-form">
-      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+      <div class="error-message" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
 
       <label>Titolo:</label>
-      <input required type="text" th:field="*{title}" />
-      <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+      <input type="text" th:field="*{title}" />
+      <div class="error-message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 
       <label>Anno:</label>
-      <input required type="text" th:field="*{year}" />
-      <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
+      <input type="text" th:field="*{year}" />
+      <div class="error-message" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
 
       <label>URL immagine:</label>
       <input type="url" th:field="*{urlImage}" />
