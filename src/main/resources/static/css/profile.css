@@ -1,13 +1,29 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .profile-content {
-  max-width: 700px;
+  flex: 1 0 auto; /* occupa tutto lo spazio disponibile */
+  max-width: 900px;
   margin: 2rem auto;
-  padding: 1.5rem 2rem;
+  padding: 2rem 3rem;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2c3e50;
 }
+
+.footer {
+  flex-shrink: 0; /* non si restringe */
+  background-color: #eee;
+  padding: 1rem 0;
+  text-align: center;
+}
+
 
 .profile-content h1 {
   margin-bottom: 1.5rem;

@@ -14,8 +14,9 @@
 	    
 	    <div class="book-year" th:text="'Anno: (' + ${book.year} + ')'">Anno: (2000)</div>
 	 
-		
-		
+		<div class="book-image-wrapper">
+		  <img th:src="@{'/image/book/' + ${book.id}}" alt="Foto libro" />
+		</div>
 
 	    <div class="section-group">
 	      <h2>Autori</h2>

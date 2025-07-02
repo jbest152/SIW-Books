@@ -12,7 +12,7 @@
     <h1>Autori</h1>
 
 	<!-- Barra di ricerca -->
-    <div class="search-bar">
+    <div th:if="${!isAdmin}" class="search-bar">
       <form th:action="@{/author/search}" method="get">
         <input type="text" name="query" placeholder="Cerca un autore..." 
                th:value="${param.query}" />

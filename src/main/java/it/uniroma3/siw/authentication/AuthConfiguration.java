@@ -49,7 +49,7 @@ public class AuthConfiguration {
             .cors(cors -> cors.disable())
             .authorizeHttpRequests(requests -> requests
             	.requestMatchers(HttpMethod.POST, "/loginAsUser", "/loginAsAdmin", "/test-login").permitAll()
-                .requestMatchers(HttpMethod.GET, "/test", "/", "/home", "/register", "/login", "/css/**", "/images/**", "/favicon.ico", "/js/**", "/webjars/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/test", "/", "/home", "/register", "/login", "/css/**", "/image/**","/images/**", "/favicon.ico", "/js/**", "/webjars/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/book/**", "/author/**", "review/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/book/**", "/author/**").hasAuthority(ADMIN_ROLE)
                 .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()

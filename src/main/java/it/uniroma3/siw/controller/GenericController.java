@@ -37,6 +37,7 @@ public abstract class GenericController<T extends BaseEntity> {
 	@GetMapping
 	public String list(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 		addModelUser(model, userDetails);
+		model.addAttribute("isAdmin", false);
 		model.addAttribute(className + "s", service.findAll());
 		return className + "/list";
 	}

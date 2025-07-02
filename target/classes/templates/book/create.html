@@ -7,8 +7,8 @@
 </head>
 <body>
   <section layout:fragment="content">
-    <h1>Aggiungi un libro</h1>
     <form th:action="@{/book}" method="POST" th:object="${item}" class="common-form">
+    	<h1>Aggiungi un libro</h1>
       <div class="error-message" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
 
       <label>Titolo:</label>

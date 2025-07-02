@@ -16,14 +16,12 @@ h1 {
   text-align: center;
 }
 
-/* Griglia */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
-/* Card */
 .card {
   background: #ffffff;
   border-radius: 12px;
@@ -33,37 +31,26 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 1.5rem; /* aumentato padding */
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
-}
-
-/* Immagine */
 .card img {
   width: 100%;
-  height: 180px;
+  height: 220px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 0.8rem;
   transition: opacity 0.3s ease;
 }
 
-.card img:hover {
-  opacity: 0.9;
-}
-
-/* Titolo e testo */
 .card h2 {
-  font-size: 1.1rem;
+  font-size: 1.2rem; /* un pochino più grande */
   color: #2d3436;
   margin: 0.5rem 0;
 }
 
 .card p {
-  font-size: 0.9rem;
+  font-size: 1rem; /* un pochino più grande */
   color: #636e72;
 }
 
