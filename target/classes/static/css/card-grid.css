@@ -171,3 +171,10 @@ section {
 .search-bar button:active {
   transform: scale(0.95);
 }
+
+.empty-message {
+  text-align: center;
+  margin-top: 2rem;
+  color: #636e72;
+  font-size: 1.1rem;
+}
