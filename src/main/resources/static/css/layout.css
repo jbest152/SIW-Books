@@ -26,11 +26,15 @@ body.layout {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Logo */
 .header-logo img {
   height: 80px;
   width: auto;
   display: block;
+  transition: box-shadow 0.3s ease;
+}
+
+.header-logo img:hover {
+  box-shadow: 0 0 12px 4px  rgba(26, 188, 156, 0.1);
 }
 
 /* ========== Contenuto principale ========== */

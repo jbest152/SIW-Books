@@ -4,13 +4,18 @@
       layout:decorate="~{fragments/layout}">
 <head>
   <title>Gestione Libri</title>
+  <link rel="stylesheet" href="/css/admin-index.css" />
 </head>
 
 <body>
-  <section layout:fragment="content">
-    <h1><a href="/book">Lista libri</a></h1>
-    <h1><a href="/book/new">Inserisci un nuovo libro</a></h1>
-    <h1><a href="/book/edit">Gestisci libri</a></h1>
+  <section layout:fragment="content" class="admin-content">
+    <h2 class="admin-title">Gestione Libri</h2>
+
+    <nav>
+      <a href="/book" class="btn-admin">Lista libri</a>
+      <a href="/book/new" class="btn-admin">Inserisci un nuovo libro</a>
+      <a href="/book/edit" class="btn-admin">Gestisci libri</a>
+    </nav>
   </section>
 </body>
 </html>

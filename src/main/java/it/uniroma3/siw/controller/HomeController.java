@@ -27,12 +27,14 @@ public class HomeController {
 	private CredentialsService credentialsService;
 
 	@GetMapping("admin/bookIndex")
-	public String homeBook(Model model) {
+	public String homeBook(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+		model.addAttribute("user", credentialsService.getCredentials(userDetails.getUsername()).getUser());
 		return "admin/bookIndex.html";
 	}
 	
 	@GetMapping("admin/authorIndex")
-	public String homeAuthor(Model model) {
+	public String homeAuthor(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+		model.addAttribute("user", credentialsService.getCredentials(userDetails.getUsername()).getUser());
 		return "admin/authorIndex.html";
 	}
 	

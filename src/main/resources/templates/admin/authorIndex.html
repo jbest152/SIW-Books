@@ -4,13 +4,23 @@
       layout:decorate="~{fragments/layout}">
 <head>
   <title>Gestione Autori</title>
+  <link rel="stylesheet" href="/css/admin-index.css" />
 </head>
 
 <body>
-  <section layout:fragment="content">
-    <h1><a href="/author">Lista autori</a></h1>
-    <h1><a href="/author/new">Inserisci un nuovo autore</a></h1>
-    <h1><a href="/author/edit">Gestisci autori</a></h1>
-  </section>
+	<body>
+	  <section layout:fragment="content" class="admin-content">
+	    <div class="admin-box">
+	      <h2 class="admin-title">Gestione Autori</h2>
+
+	      <nav>
+	        <a href="/author" class="btn-admin">Lista autori</a>
+	        <a href="/author/new" class="btn-admin">Inserisci un nuovo autore</a>
+	        <a href="/author/edit" class="btn-admin">Gestisci autori</a>
+	      </nav>
+	    </div>
+	  </section>
+	</body>
+
 </body>
 </html>
