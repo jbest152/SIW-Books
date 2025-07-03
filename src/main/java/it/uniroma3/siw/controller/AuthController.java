@@ -39,6 +39,10 @@ public class AuthController {
                 BindingResult credentialsBindingResult,
                 Model model) {
 
+		if (credentialsService.getCredentials(credentials.getUsername())!=null) {
+			credentialsBindingResult.rejectValue("username", "error.credentials", "Username già esistente");
+		}
+		
         if(userBindingResult.hasErrors() || credentialsBindingResult.hasErrors()) {
         	return "auth/register";
         }

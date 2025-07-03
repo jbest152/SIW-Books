@@ -41,9 +41,13 @@ nav a.btn-admin:hover,
 nav a.btn-admin:focus {
   background-color: #1abc9c;
   box-shadow: 0 8px 14px rgba(30, 132, 73, 0.7);
-  transform: translateY(-4px);
+  transform: scale(1.03);
   outline: none;
   text-decoration: none;
+}
+
+nav a.btn-admin:active {
+  transform: scale(0.96);
 }
 
 .admin-box {
