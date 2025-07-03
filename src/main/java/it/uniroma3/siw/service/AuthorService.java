@@ -18,4 +18,10 @@ public class AuthorService extends GenericService<Author, Long>{
 		AuthorRepository repository = (AuthorRepository) super.repository;
 		return repository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(query, query);
 	}
+	
+	@Override
+	public List<Author> findAll() {
+		AuthorRepository repository = (AuthorRepository) super.repository;
+		return repository.findAllByOrderByNameAsc();
+	}
 }

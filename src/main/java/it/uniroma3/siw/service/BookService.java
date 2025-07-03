@@ -68,9 +68,15 @@ public class BookService extends GenericService<Book, Long>{
 
 	     if (imageToRemove != null) {
 	         book.getImages().remove(imageToRemove);
-	         imageService.deleteById(imageId); // rimuove anche dal DB
+	         imageService.deleteById(imageId);
 	     }
 
-	     super.save(book); // aggiorna il libro
+	     super.save(book);
+	 }
+	 
+	 @Override
+	 public List<Book> findAll() {
+		 BookRepository repository = (BookRepository) super.repository;
+		 return repository.findAllByOrderByTitleAsc();
 	 }
 }
